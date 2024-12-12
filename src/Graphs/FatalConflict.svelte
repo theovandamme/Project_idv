@@ -79,7 +79,7 @@ const color = 'rgb(93, 134, 156)'
  I couldn't figure how to fix it yet. -->
  <Graphic width={width} height={650}>   
  <Section
-    x1={0.8}
+    x1={0.82}
     x2={1}
     y1={0}
     y2={1}
