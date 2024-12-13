@@ -201,7 +201,7 @@
     </h1>
     {:else if (select_page=='search')}
     <Search
-    items={unique_leaders.domain('fullbirthname')}/>
+    DC={unique_leaders}/>
     {:else if (select_page=='about')}
       <About/>
   {/if}
