@@ -1,0 +1,50 @@
+<script>
+    export let DC
+
+    let items = DC.domain('fullbirthname')
+    let leader = ''
+    console.log(items)
+    import {
+      Page,
+      Navbar,
+      Searchbar,
+    } from 'konsta/svelte';
+  
+    let searchQuery = '';
+
+  
+    function handleSearch(e) {
+      searchQuery = e.target.value;
+    }
+  
+    function handleClear() {
+      searchQuery = '';
+    }
+
+    function selectLeader(item){
+        leader = DC.filter(row => row.fullbirthname === item)
+        handleClear
+        console.log(leader)
+    }
+  
+    $: possibleItems = items.filter((item)=>item.toLowerCase().includes(searchQuery.toLowerCase()))
+
+  </script>
+  
+  <Page>
+    <Navbar title="Searchbar">    <Searchbar
+        slot="subnavbar"
+        onInput={handleSearch}
+        value={searchQuery}
+        onClear={handleClear}
+      />
+    </Navbar>
+    {#if (searchQuery.length >2)}
+      {#if possibleItems.length === 0}
+        <button>No result found</button>
+      {/if}
+      {#each possibleItems as item (item)}
+        <button  on:click={selectLeader}> {item}</button>
+      {/each}
+    {/if}
+  </Page>

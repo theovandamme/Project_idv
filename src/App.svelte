@@ -11,6 +11,7 @@
   import Charts from './Pages/Charts.svelte'
   import Overview from './Pages/overview.svelte'
   import About from './Pages/About.svelte'
+  import Search from './Pages/Search.svelte'
 
 
 
@@ -198,6 +199,9 @@
     <h1>
       This feature is not yet available
     </h1>
+    {:else if (select_page=='search')}
+    <Search
+    DC={unique_leaders}/>
     {:else if (select_page=='about')}
       <Worldmap/>
   {/if}
