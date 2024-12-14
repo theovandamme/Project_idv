@@ -9,6 +9,7 @@
     export let unique_leaders
     let width, height
 
+
 </script>
     <div class= 'page'>
         <h2>

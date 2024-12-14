@@ -155,7 +155,7 @@ $: if (selectedEntryMethod) {
     </Graphic>
     {/if}
     <Graphic 
-    width={width} height={100} backgroundColor={'blue'} scaleX= {scaleLinear().domain([0,100])} > 
+    width={width} height={100} scaleX= {scaleLinear().domain([0,100]).range({width})} > 
 
         <RectangleLayer 
           x1={entryMethod_container.column('x1_entry')} 

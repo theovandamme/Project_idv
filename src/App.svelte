@@ -199,7 +199,7 @@
       This feature is not yet available
     </h1>
     {:else if (select_page=='about')}
-      <About/>
+      <Worldmap/>
   {/if}
   
 
