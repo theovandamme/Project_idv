@@ -1,9 +1,12 @@
 <script>
     export let DC
-
+    export let Clickedleader 
     let items = DC.domain('fullbirthname')
     let leader = ''
-    console.log(items)
+
+    if (Clickedleader !== ''){
+      leader = DC.filter(row => row.fullbirthname === Clickedleader)
+    }
     import {
       Page,
       Navbar,

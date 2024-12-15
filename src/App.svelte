@@ -20,8 +20,7 @@
   let unique_leaders_raw
   let unique_leaders
   let progress = false
-  let current_page
-
+  let leader = ''
   
   async function loadCSV (url) {
     const response = await fetch(url)
@@ -189,7 +188,9 @@
     <Overview
     unique_leaders={unique_leaders}
     unique_leaders_raw={unique_leaders_raw}
-    progress={progress}/>
+    progress={progress}
+    bind:select_page={select_page}
+    bind:leader={leader}/>
   {:else if (select_page=='charts')}
     <Charts
     unique_leaders={unique_leaders}
@@ -201,7 +202,8 @@
     </h1>
     {:else if (select_page=='search')}
     <Search
-    DC={unique_leaders}/>
+    DC={unique_leaders}
+    Clickedleader={leader}/>
     {:else if (select_page=='about')}
       <Worldmap/>
   {/if}
