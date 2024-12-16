@@ -11,6 +11,7 @@
     export let select_page
     export let unique_leaders
     export let leader
+    export let raw_data
     let width, height
 
 
@@ -23,6 +24,7 @@
         <OverviewGraph
           DC_raw = {unique_leaders}
           width = {width}
+          raw_data = {raw_data}
           bind:select_page={select_page}
           bind:leader={leader}/>
         {/if}
