@@ -51,11 +51,11 @@
     </div>
 <style>
     h2 {padding-left: 20px;}
-    .page {width:85%;
+    .page {width:90%;
             float: left;
           height:740px;
         }
-    .worldmap {width:100%;
+    .worldmap {width:98%;
         height:700px;
         position: relative;
         float:left;
