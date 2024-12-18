@@ -21,11 +21,12 @@
   let unique_leaders
   let progress = false
   let leader = ''
+  let dataParsed
   
   async function loadCSV (url) {
     const response = await fetch(url)
     const data = await response.text()
-    const dataParsed = csvParse(data, autoType)
+    dataParsed = csvParse(data, autoType)
     unique_leaders_raw = new DataContainer(dataParsed)
     progress = true
   }
@@ -189,6 +190,7 @@
     unique_leaders={unique_leaders}
     unique_leaders_raw={unique_leaders_raw}
     progress={progress}
+    raw_data = {dataParsed}
     bind:select_page={select_page}
     bind:leader={leader}/>
   {:else if (select_page=='charts')}
@@ -261,12 +263,12 @@
                   margin-left: 60px;}
 .double_arrow_open{position: fixed;
                     margin-left: 108px;
-                    margin-top: 130px;
+                    margin-top: -183px;
                   background-color: #9fc1b8;
                   cursor:pointer;}    
 .double_arrow_closed{position: fixed;
                     margin-left:47px;
-                    margin-top: 130px;
+                    margin-top: -183px;
                   background-color: #9fc1b8;} 
 
 .double_arrow{width: 25px;
