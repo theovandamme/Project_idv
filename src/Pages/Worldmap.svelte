@@ -24,13 +24,13 @@
 
 function handleMouseover(event) {
   active = event.key; // Update the active key
-  console.log("Active Key Updated:", active);
-  console.log("Loaded Data:", WRegions);
+  // console.log("Active Key Updated:", active);
+  // console.log("Loaded Data:", WRegions);
   
 }
   function handleMouseout() {
     active = '' // Reset active
-    console.log("Mouseout: Active Key Reset");
+    // console.log("Mouseout: Active Key Reset");
   }
 </script>
 
@@ -58,8 +58,6 @@ function handleMouseover(event) {
     </div>
    
   {#if active !== ''}
-  
-
   <div>
     <p> {Region}</p>
   </div>
@@ -75,8 +73,7 @@ function handleMouseover(event) {
   }
   p {
     position:absolute;
-    left: 100px;
-    /* width: 100px; */
+    left: 150px;
     background: white;
     padding: 5px 5px;
     border: 1px solid #ccc;

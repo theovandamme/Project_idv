@@ -1,5 +1,5 @@
 <script>
-import { Graphic, Section, RectangleLayer, PointLayer, Line, XAxis, YAxis, x2s } from '@snlab/florence'
+import { Graphic, Section, RectangleLayer, PointLayer, Line, XAxis, YAxis, x2s,LabelLayer} from '@snlab/florence'
 import { regressionLinear } from 'd3-regression'
 import { schemeSpectral,interpolateSpectral,interpolatePuOr } from 'd3-scale-chromatic';
 import { scaleLinear, scaleBand, scaleTime, scaleOrdinal } from 'd3-scale'
@@ -105,7 +105,7 @@ function DefinePercentages(leaders) {
     x1_entry_local.pop();  // Remove the last entry from x1_entry_local (as per original code logic)
     entryMethod_container.addColumn('x1_entry', x1_entry_local)
     entryMethod_container.addColumn('x2_entry', x2_entry_local)
-
+    console.log(entryMethod_container)
   return { entryMethod_container }
 }
 
@@ -125,6 +125,9 @@ $: if (selectedEntryMethod) {
     updateOccupationData();
     DefinePercentages(DC_raw)
 }
+
+const labelEntrymethod=entryMethod_container.row({key:x1_entry})['entrymethod']
+console.log(labelEntrymethod)
 </script>
 <div class="title">
     <!-- title/header content goes here -->
@@ -139,6 +142,32 @@ $: if (selectedEntryMethod) {
     {/each}
   </select>
   </div>
+  <Graphic 
+  width={width} height={100} 
+  scaleX= {scaleLinear().domain([entryMethod_container.min('x1_entry'),entryMethod_container.max('x2_entry')]).range({width})}
+  flipY padding={{left: 10, right:10, top: 25, bottom: 40}} > 
+
+      <RectangleLayer 
+        x1={entryMethod_container.column('x1_entry')} 
+        x2={entryMethod_container.column('x2_entry')} 
+        y1={entryMethod_container.column('x1_entry').map((x) =>x= 0)} 
+        y2={entryMethod_container.column('x1_entry').map((x) =>x= 0.8)}
+        keys={entryMethod_container.column('entryMethod')}
+        fill={entryMethod_container.column('x2_entry').map(scaleColor_entryMethod)}
+        onMouseover={(event, d) => handleMouseover(event, entryMethod_container)} 
+        onMouseout={handleMouseout}
+        />  
+        <XAxis />
+        <LabelLayer class=labelEntry
+        x={entryMethod_container.column('x1_entry')} 
+        y={entryMethod_container.column('x1_entry').map((x) =>x= 0.2)} 
+        text={entryMethod_container.column('entryMethod')}
+        fill=white
+        fontSize=8
+        anchorPoint='l'
+        />
+        
+    </Graphic> 
     {#if (correct_DC)}
     <Graphic width={width} height={650} {scaleX} {scaleY} flipY padding={{left: 40, right:10, top: 25, bottom: 40}}>
         <RectangleLayer 
@@ -154,19 +183,7 @@ $: if (selectedEntryMethod) {
         <YAxis title='Count'/> 
     </Graphic>
     {/if}
-    <Graphic 
-    width={width} height={100} scaleX= {scaleLinear().domain([0,100]).range({width})} > 
-
-        <RectangleLayer 
-          x1={entryMethod_container.column('x1_entry')} 
-          x2={entryMethod_container.column('x2_entry')} 
-          y1={entryMethod_container.column('x1_entry').map((x) =>x= 0)} 
-          y2={entryMethod_container.column('x1_entry').map((x) =>x= 1)}
-          fill={entryMethod_container.column('x2_entry').map(scaleColor_entryMethod)}
-          onMouseover={(event, d) => handleMouseover(event, entryMethod_container)} 
-          onMouseout={handleMouseout}
-          />  
-          <XAxis/>
-      </Graphic> 
+   
 <style>
+
 </style>
