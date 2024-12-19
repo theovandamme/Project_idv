@@ -13,6 +13,8 @@
     export let width
     export let raw_data
 
+    console.log(width)
+    let grap_width
     let test = DC_raw.rows()
     let select = false
     let label
@@ -56,6 +58,7 @@
         label = node
         
     }
+
     function ChooseSide(label){
         if (label.x <0.5){
             return 'lb'
@@ -77,7 +80,6 @@
     function changePage(led){
         leader = led.fullbirthname 
         select_page = 'search'
-    
     }
 
     let simulationEnd = false
@@ -244,7 +246,7 @@
             </button>
         {/if}
         </div>
-        <div width={width-80} class='graph'>
+        <div width={width-80} bind:clientWidth={grap_width} class='graph'>
       <Graphic  width={width-80} height='650' scaleX={scale_x} scaleY={scale_y} >
         {#each test as node}
         <Point
@@ -294,7 +296,7 @@
         
     }
     .right_container{
-        width:40px;
+        width:38px;
         height:650px;
         float:right;
         
