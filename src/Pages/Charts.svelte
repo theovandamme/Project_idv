@@ -4,6 +4,7 @@
     import { regressionLinear } from 'd3-regression'
     import { scaleLinear, scaleBand, scaleTime } from 'd3-scale'
     import DataContainer from '@snlab/florence-datacontainer'
+
     import Age_VS_LD from '../Graphs/AgeVSLeadershipDuration.svelte'
     import Worldmap from './Worldmap.svelte'
     import ExportCSV from '../Helpers/ExportCSV.svelte'
@@ -64,6 +65,9 @@
             <option value={item}> {item}</option>
             {/each}
           </select>
+          <Worldmap>
+
+          </Worldmap>
 
           <div bind:this={divElement} class= 'graph_and_description' >
           {#if (selected_variable == 'LeadAge_VS_YIP')}
