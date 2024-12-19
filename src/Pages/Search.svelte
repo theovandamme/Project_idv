@@ -2,7 +2,7 @@
     export let DC
     export let Clickedleader 
     let items = DC.domain('fullbirthname')
-    let leader = ''
+    let leader 
 
     if (Clickedleader !== ''){
       leader = DC.filter(row => row.fullbirthname === Clickedleader)
@@ -32,6 +32,9 @@
   
     $: possibleItems = items.filter((item)=>item.toLowerCase().includes(searchQuery.toLowerCase()))
 
+    //{leader.column(‘fullbirthname’)}
+
+
   </script>
   
   <Page>
@@ -47,7 +50,19 @@
         <button>No result found</button>
       {/if}
       {#each possibleItems as item (item)}
-        <button  on:click={selectLeader}> {item}</button>
+        <button  on:click={()=>{selectLeader(item), handleClear()}}> {item}</button>
+
       {/each}
     {/if}
+    <div> 
+      {#if leader}
+      {leader.column('fullbirthname')}
+      {/if}
+      
+    
+    
+    
+      </div>
   </Page>
+  
+
