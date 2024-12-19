@@ -68,9 +68,9 @@ function handleMouseover(event) {
   .graph {
     font-family: Arial, sans-serif;
   }
-  .main-chart {
+  /* .main-chart {
     position: relative;
-  }
+  } */
   p {
     position:absolute;
     left: 150px;
