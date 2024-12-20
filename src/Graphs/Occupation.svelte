@@ -111,9 +111,8 @@ function DefinePercentages(leaders) {
 
 updateOccupationData()
 scaleColor_entryMethod = defineScalecolor_entry(DC_raw.domain('entrymethod'))
-if (correct_DC){
     scaleColor_occupation = defineScalecolor_occ(leaders_occupation.domain("occupation"));
-}
+
 
 DefinePercentages(DC_raw)
 

@@ -2,7 +2,7 @@
   import { Graphic, Section, RectangleLayer, PointLayer, Line, XAxis, YAxis, PolygonLayer, fitScales,Label} from '@snlab/florence';
   import { regressionLinear } from 'd3-regression';
   import { scaleLinear, scaleBand, scaleTime, scaleOrdinal } from 'd3-scale';
-  import { schemePaired } from 'd3-scale-chromatic';
+  import { schemePaired,schemeSet3 } from 'd3-scale-chromatic';
   import DataContainer from '@snlab/florence-datacontainer';
   import { WorldRegions } from '/src/Helpers/WorldRegionExport.js';
 
@@ -16,16 +16,26 @@
   const myGeoScale = fitScales(WRegions.domain('$geometry')); // 1. position
   const myColorScale = scaleOrdinal() // 2. fill color
     .domain(WRegions.domain('region'))
-    .range(schemePaired);
+    .range(schemeSet3);
 
+    
   // 3. Mouseover behavior
   let active = '';
-  $: Region = active ? (WRegions.row({key:active}))['region'] : '';
+  let RegionData
+  $: Region = active ? (WRegions.row({key:active}))['region'] : ''
+  $:if (active !== ''){
+    RegionData=WRegions.filter(row=>row.region === Region)
+    console.log(RegionData)
+  } else {
+    RegionData = WRegions
+  }
+
 
 function handleMouseover(event) {
   active = event.key; // Update the active key
-  // console.log("Active Key Updated:", active);
-  // console.log("Loaded Data:", WRegions);
+
+function handleClick(event){
+}
   
 }
   function handleMouseout() {
@@ -34,17 +44,9 @@ function handleMouseover(event) {
   }
 </script>
 
-<div class="graph">
   <div class="main-chart">
-    <Graphic>
-      
-     <Section
-     width={800}
-      height={400}
-      {...myGeoScale}
-      flipY
-      onMouseout={handleMouseout}
-    >
+    <Graphic width={500} height={200} backgroundColor={'blue'} {...myGeoScale}
+      flipY>
       <PolygonLayer
         geometry={WRegions.column('$geometry')}
         stroke={'white'}
@@ -52,28 +54,34 @@ function handleMouseover(event) {
         fill={WRegions.map('region', myColorScale)}
         keys={WRegions.column('COUNTRY')}
         onMouseover={handleMouseover}
+        onMouseout={handleMouseout}
       />
-      </Section>
+      <!-- trying to add the selected region on top  -->
+      {#if active !== ''}
+      <PolygonLayer
+      geometry={RegionData.column('$geometry')}
+      strokeWidth={5}
+      fill={'red'} />  
+          
+      {/if}
      </Graphic>
     </div>
-   
   {#if active !== ''}
-  <div>
+    <div>
     <p> {Region}</p>
   </div>
   {/if}
-</div>
 
 <style>
   .graph {
     font-family: Arial, sans-serif;
   }
-  /* .main-chart {
-    position: relative;
-  } */
+
   p {
     position:absolute;
-    left: 150px;
+    top: 200px;
+
+    left: 450px;
     background: white;
     padding: 5px 5px;
     border: 1px solid #ccc;
