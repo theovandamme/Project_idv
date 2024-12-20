@@ -9,6 +9,7 @@
     import ExportCSV from '../Helpers/ExportCSV.svelte'
     import Education from '../Graphs/Education.svelte'
     import ExportSvg from '../Helpers/ExportSVG.svelte'
+    import FatalCombatEduc from '../Graphs/FatalCombatEduc.svelte'
     import FatalConflict from '../Graphs/FatalConflict.svelte'
     import Occupation from '../Graphs/Occupation.svelte'
     export let unique_leaders_raw
@@ -55,6 +56,7 @@
             <option value= 'Education' >Education level</option>
             <option value= 'FatalConflicts' >Fatality and duration of conflicts</option>
             <option value= 'Leader_occupation' >Leaders occupation</option>
+            <option value= 'FatalCombatEducation' >Fatalities versus Education and Combat Experience</option>
           </select>
 
           <p class = 'charts'>And the region of interest</p>
@@ -76,6 +78,10 @@
           <Education
           DC_raw = {unique_leaders}
           width = {width}/>
+          {:else if (selected_variable=='FatalCombatEducation')}
+          <FatalCombatEduc 
+          width = {width}
+          DC_raw={unique_leaders}/>
           {:else if (selected_variable=='FatalConflicts')}
           <FatalConflict 
           width = {width}

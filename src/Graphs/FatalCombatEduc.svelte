@@ -1,68 +1,112 @@
 <script>
-    import { scaleLinear, scaleOrdinal, scaleLog } from 'd3-scale'
-    import { Section, RectangleLayer, XAxis, YAxis, YGridLines, XGridLines, DiscreteLegend, Label, Graphic} from '@snlab/florence'
-    import DataContainer from '@snlab/florence-datacontainer'
-    import { schemeSet3 } from 'd3-scale-chromatic'
+  import { scaleLinear, scalePoint, scaleOrdinal } from 'd3-scale'
+  import { schemeCategory10 } from 'd3-scale-chromatic'
+  import { Section, PointLayer, XAxis, YAxis, DiscreteLegend, Label, Graphic } from '@snlab/florence'
+  import DataContainer from '@snlab/florence-datacontainer'
+  import { schemeSet3 } from 'd3-scale-chromatic'
 
-    export let DC_raw
-    export let width
+  export let DC_raw
+  export let width
 
+  let unique_leaders_yup
+  let scaleCombat
+  let scaleEducation
+  let scaleRadius
+  let regionColorScale
+  let padding
 
-    
-    // export let selectedReligion
-    
-    let unique_leaders_yap
-    let regionColorScale
-    let scaleX
-    let scaleY
-    let padding
-    
+  // Data transformation: Mutating data for mean km_a by (combat, education)
+  $: unique_leaders_yup = DC_raw.mutate({ 
+    x1: r => r.combat,
+    y1: r => r.education,
+    size: r => r.km_a 
+  })
 
-    
-        const thicknessFactor = 1.15; // to control thickness of bars, as I'm using a log scale
+  // Filtering out rows with missing or invalid km_a values
+  $: unique_leaders_yup = DC_raw.filter(
+    row => !isNaN(row.km_a)
+  ) 
 
-        $: unique_leaders_yap = DC_raw.mutate({
-            x1: r => r.ldrstwar_year,
-            x2: r => r.ldrendwar_year,
-            y1: r => r.km_a,
-            y2: r => r.km_a * thicknessFactor
-        });
+//   // Define unique categories for combat and education from the dataset 
+//   $: uniqueCombat = ['0', '1', 'NaN']  // Combat experience categories
+//   $: uniqueEducation = [...new Set(unique_leaders.domain('education'))]   // Dynamically extract education levels from dataset
 
-        $: unique_leaders_yap = unique_leaders_yap.filter(
-            row => row.km_a > 0 && !isNaN(row.km_a)
-        )
+  // Define scale for combat and education
+  $: scaleX = scalePoint()
+    .domain(unique_leaders_yup.domain('combat'))
+    .padding(0.2) 
 
+  $: scaleY = scalePoint()
+    .domain(unique_leaders_yup.domain('education')) 
+    .padding(0.2) 
 
-        $: uniqueRegions = [...new Set(unique_leaders_yap.column('Region'))];
+  // Calculate the maximum km_a value to scale the circle radius
+  $: maxFatalities = unique_leaders_yup.max('km_a') 
 
-        $: domainX = [
-            unique_leaders_yap.min('ldrstwar_year'),
-            unique_leaders_yap.max('ldrendwar_year'),
-            ];
+  $: scaleRadius = scaleLinear()
+    .domain([0, maxFatalities])
+    .range([2, 50])  // Adjust min and max size as needed
 
-        $: domainY = [1, unique_leaders_yap.max('km_a')+1500];
+  regionColorScale = scaleOrdinal()
+    .domain(DC_raw.domain('Region'))
+    .range(schemeSet3) 
 
-        $: scaleX = scaleLinear().domain(domainX).range([0, 800]);
-        $: scaleY = scaleLog().domain(domainY).range([400, 0]);
-
-        // Create colour scale
-
-        regionColorScale = scaleOrdinal()
-            .domain(DC_raw.domain('Region'))
-            .range(schemeSet3);
-
-
-        
-
-        // function handleMouseClick (event) {
-        //     console.log(event)
-        //     selected_region = event.key
-        // }
-        // function handleMouseClickElse (event) {
-        //     selected_region = ''
-        // }
-        
-
-padding = { left: 50, bottom: 40, top: 10, right: 10 }
-const color = 'rgb(93, 134, 156)'
+  padding = { left: 50, bottom: 40, top: 10, right: 10 }
 </script>
+
+<Graphic width={width} height={600}>
+  <Section
+    x1={0}
+    x2={1}
+    y1={0}
+    y2={1}
+    {scaleX}
+    {scaleY}
+    {padding}
+  >
+
+    <PointLayer
+      x={unique_leaders_yup.column('x1')}
+      y={unique_leaders_yup.column('y1')}
+      radius={unique_leaders_yup.map('size', scaleRadius)}
+      fill={unique_leaders_yup.map('Region', r => regionColorScale(r))}
+      opacity={0.7}
+    />
+
+    <XAxis 
+      title="Combat Experience"
+      labelFormat={d => d}
+      labelFont="Courier"
+      titleFont="Courier"
+      titleYOffset={30}
+    />
+    <YAxis 
+      title="Education Level"
+      labelFont="Courier"
+      titleFont="Courier"
+      titleXOffset={-30}
+      labelFontSize={8}
+    />
+
+  </Section>
+
+  <!-- Optional Label and Legend -->
+  <Label
+    x={0.5}
+    y={0.98}
+    text="Terrorism Fatalities by Combat Experience and Education"
+    fontFamily="Courier"
+    fontSize={18}
+    fontWeight={800}
+  />
+
+  <DiscreteLegend
+    x1={0.75} x2={1}
+    y1={0} y2={0.25}
+    yDivider={0}
+    fill={regionColorScale.range()}
+    labels={['No Combat', 'Combat', 'Unknown']}
+    stroke="white"
+    strokeWidth={2}
+  />
+</Graphic>
