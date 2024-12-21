@@ -180,4 +180,22 @@
 
       }          
 .export {margin-top: -30px;}
+button {
+  background-color: #24ba83; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 8px;
+}
+button:hover {
+  background-color: #e8eeec;
+  color: rgb(16, 3, 3);
+}
     </style>
