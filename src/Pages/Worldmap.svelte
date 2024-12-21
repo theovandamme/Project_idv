@@ -5,6 +5,7 @@
   import { schemePaired,schemeSet3 } from 'd3-scale-chromatic';
   import DataContainer from '@snlab/florence-datacontainer';
   import { WorldRegions } from '/src/Helpers/WorldRegionExport.js';
+  import color_region from '/src/Graphs/Overview_graph.svelte'
 
 
 
@@ -17,6 +18,8 @@
   const myColorScale = scaleOrdinal() // 2. fill color
     .domain(WRegions.domain('region'))
     .range(schemeSet3);
+    // const myColorScale = scaleOrdinal().domain(WRegions.domain('region'))
+    //   .range(color_region)
 
     
   // 3. Mouseover behavior
