@@ -50,7 +50,7 @@
         <button>No result found</button>
       {/if}
       {#each possibleItems as item (item)}
-        <button  on:click={()=>{selectLeader(item), handleClear()}}> {item}</button>
+        <button on:click={()=>{selectLeader(item), handleClear()}}> {item}</button>
 
       {/each}
     {/if}

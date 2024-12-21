@@ -111,7 +111,7 @@ function DefinePercentages(leaders) {
 
 updateOccupationData()
 scaleColor_entryMethod = defineScalecolor_entry(DC_raw.domain('entrymethod'))
-    scaleColor_occupation = defineScalecolor_occ(leaders_occupation.domain("occupation"));
+scaleColor_occupation = defineScalecolor_occ(leaders_occupation.domain("occupation"));
 
 
 DefinePercentages(DC_raw)
@@ -152,7 +152,7 @@ console.log(labelEntrymethod)
         y1={entryMethod_container.column('x1_entry').map((x) =>x= 0)} 
         y2={entryMethod_container.column('x1_entry').map((x) =>x= 0.8)}
         keys={entryMethod_container.column('entryMethod')}
-        fill={entryMethod_container.column('x2_entry').map(scaleColor_entryMethod)}
+        fill={entryMethod_container.column('entryMethod').map(scaleColor_entryMethod)}
         onMouseover={(event, d) => handleMouseover(event, entryMethod_container)} 
         onMouseout={handleMouseout}
         />  

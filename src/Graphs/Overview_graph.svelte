@@ -1,6 +1,6 @@
 <script>
 
-    import { Graphic, Label, Point, Line, XAxis, YAxis, x2s } from '@snlab/florence'
+    import { Graphic, Label, Point, DiscreteLegend, getClassLabels } from '@snlab/florence'
     import { regressionLinear } from 'd3-regression'
     import { scaleOrdinal } from 'd3-scale'
     import DataContainer from '@snlab/florence-datacontainer'
@@ -22,36 +22,54 @@
     let scale_x = [0,1]
     let scale_y = [0,1]
 
+    let legend_regions = DC_raw.domain('Region')
+    let legend_religions = DC_raw.domain('religion')
+    legend_religions.push('No information')
+    console.log(legend_religions.push('no information'))
+    let legend_education = ["No/incomplete primary", "Finished primary", "Finished secondary","Obtained Bachelor's","Obtained Master's","Obtained Doctorate"]
+    let legend_dead = ['Alive', 'Dead', 'No information']
+
+    // making of color scales
+    let color_regions = scaleOrdinal(DC_raw.domain('Region'), schemeSet3)
+    let color_religions = scaleOrdinal(DC_raw.domain('religion'), schemeSet3).unknown('grey')
+    let color_education = scaleOrdinal(legend_education, schemeSet3).unknown('grey')
+    let color_dead = scaleOrdinal(DC_raw.domain('dead'), schemeSet3).unknown('grey')
+    console
+
     function make_color(page, node){
-        if (page==1 || page ==0){
-            const colors = {
-                "Middle East": "gold",
-                "Oceania": "#33FF57",
-                "Europe": "#3357FF",
-                "Central Asia": "#FFFF33",
-                "Sub-Saharan Africa": "#FF5733",
-                "Northern Africa": "#8E44AD",
-                "South America": "#00FFFF",
-                "South-Eastern Asia": "#FF00FF",
-                "Eastern Europe": "#00FF00",
-                "Central America": "#008080",
-                'North America': "#000080",
-                'South Asia': "#C0C0C0"
-            }
-            return colors[node.Region]
+        if (page ==0){
+            return 'grey'
+        }
+        else if (page==1 ){
+            return color_regions(node.Region)
         }
         else if (page==2){
-            const colors = {
-                "Islam": "gold",
-                "Christianity": "#33FF57",
-                "Other": "#3357FF",
-                "Buddhism": "#FFFF33",
-                "Hinduism": "#FF5733",
-            }
-            return colors[node.religion]
+            return color_religions(node.religion)
+        }
+        else if (page==3){
+            return color_education(node.education)
+        }
+        else if (page==4){
+            return color_dead(node.dead)
         }
     }
-    ;
+    function add_gray(color_scheme){
+        color_scheme.push('grey')
+        return color_scheme
+    }
+    function add_no_information(legend){
+        legend.push('No information')
+        return legend
+    }
+    function label_text(label){
+        if (label.deathcause == null){
+            return 'no information'
+        } 
+        else {
+            return label.deathcause
+        }
+    }
+
     function Handlemouseover(node){
         select = true
         //console.log(node)
@@ -165,7 +183,7 @@
 
 
     }
-
+    //simulation for the religion
     $: if (page == 2 && simulationRunning){
         simulationEnd = false
         let religions = DC_raw.domain('religion')
@@ -227,9 +245,151 @@
 
 
     }
-    const padding = { left: 60, bottom: 40, top: 15, right: 10 }
-    </script>
 
+    // simulation for the education level
+    $: if (page == 3 && simulationRunning){
+        simulationEnd = false
+        let education = DC_raw.domain('education')
+        let links = []
+        for (let i = 0; i < education.length; i++){
+            let educ = education[i]
+            let Education_DC = DC_raw.filter(row => row.education === educ).column('fullbirthname')
+                Education_DC.forEach((element)=>{
+                    for (let i = 0; i < Education_DC.length; i++){
+                        let name_source = element
+                        let name_target = Education_DC[i]
+                        links.push({source:name_source, target:name_target})
+                    }
+                })
+                }
+        let no_info = DC_raw.filter(row => row.education == null).column('fullbirthname')
+        no_info.forEach((element)=>{
+            for (let i = 0; i < no_info.length; i++){
+                        let name_source = element
+                        let name_target = no_info[i]
+                        links.push({source:name_source, target:name_target})
+            }
+        })
+        
+        let simulation = forceSimulation(test)
+        .force('link', forceLink(links).id(d => d.fullbirthname).distance(0.02))
+        .force("collision", forceCollide().radius(0.05 / 2 * 0.9))
+        .force('center', forceCenter(0.55, 0.55))
+        .alphaDecay(0.4)
+        //.force('charge', forceManyBody().strength(1))
+        .on('tick', () => {
+            if (!simulationEnd){
+                test.map((value)=> delete value.$key)
+                test = test
+                let DC_test = new DataContainer(test)
+                let maxX = DC_test.max('x')
+                let minX = DC_test.min('x')
+                let maxY = DC_test.max('y')
+                let minY = DC_test.min('y')
+                test.map((value)=> value.x = (value.x - minX)/(maxX-minX))
+                test.map((value)=> value.y = (value.y - minY)/(maxY-minY))
+            }
+        })
+        .on('end', ()=> {
+            simulationEnd = true
+            // simulation.stop()
+            simulationRunning = false
+            test.map((value)=> delete value.$key)
+            test = test
+            let DC_test = new DataContainer(test)
+            let maxX = DC_test.max('x')
+            let minX = DC_test.min('x')
+            let maxY = DC_test.max('y')
+            let minY = DC_test.min('y')
+            test.map((value)=> value.x = (value.x - minX)/(maxX-minX))
+            test.map((value)=> value.y = (value.y - minY)/(maxY-minY))
+            console.log('1done')
+        });
+
+
+    }
+
+    // simulation for alive/death 
+    $: if (page == 4 && simulationRunning){
+        simulationEnd = false
+        let dead = DC_raw.domain('dead')
+        let links = []
+        for (let i = 0; i < dead.length; i++){
+            let ded = dead[i]
+            console.log(ded)
+            let Dead_DC = DC_raw.filter(row => row.dead === ded).column('fullbirthname')
+                Dead_DC.forEach((element)=>{
+                    for (let i = 0; i < Dead_DC.length; i++){
+                        let name_source = element
+                        let name_target = Dead_DC[i]
+                        links.push({source:name_source, target:name_target})
+                    }
+                })
+                }
+        let no_info = DC_raw.filter(row => row.dead == null).column('fullbirthname')
+        no_info.forEach((element)=>{
+            for (let i = 0; i < no_info.length; i++){
+                        let name_source = element
+                        let name_target = no_info[i]
+                        links.push({source:name_source, target:name_target})
+            }
+        })
+        let simulation = forceSimulation(test)
+        .force('link', forceLink(links).id(d => d.fullbirthname).distance(0.02))
+        .force("collision", forceCollide().radius(0.05 / 2 * 0.9))
+        .force('center', forceCenter(0.55, 0.55))
+        .alphaDecay(0.4)
+        //.force('charge', forceManyBody().strength(1))
+        .on('tick', () => {
+            if (!simulationEnd){
+                test.map((value)=> delete value.$key)
+                test = test
+                let DC_test = new DataContainer(test)
+                let maxX = DC_test.max('x')
+                let minX = DC_test.min('x')
+                let maxY = DC_test.max('y')
+                let minY = DC_test.min('y')
+                test.map((value)=> value.x = (value.x - minX)/(maxX-minX))
+                test.map((value)=> value.y = (value.y - minY)/(maxY-minY))
+            }
+        })
+        .on('end', ()=> {
+            simulationEnd = true
+            // simulation.stop()
+            simulationRunning = false
+            test.map((value)=> delete value.$key)
+            test = test
+            let DC_test = new DataContainer(test)
+            let maxX = DC_test.max('x')
+            let minX = DC_test.min('x')
+            let maxY = DC_test.max('y')
+            let minY = DC_test.min('y')
+            test.map((value)=> value.x = (value.x - minX)/(maxX-minX))
+            test.map((value)=> value.y = (value.y - minY)/(maxY-minY))
+            console.log('1done')
+        });
+
+
+    }
+    // simulation for death cause
+
+    const padding = { left: 110, bottom: 40, top: 15, right: 10 }
+    </script>
+        <div class='text'>
+        {#if (page==0)}
+        <h3> You can now see the 425 rebel leaders who were active between 1980 and 2011. This does not give us much of an idea of who these people are. Who did they fight against? </h3>
+        <p>Hover over the leaders to see who they are.</p>
+        {:else if (page==1)}
+            <h3> The leaders are now grouped by region in which the country against which they were fighting is located. What about more personal attributes?  </h3>
+        {:else if (page==2)}
+            <h3>Such as their beliefs?</h3>
+        {:else if (page==3)}
+            <h3>Or the education they achieved?</h3>
+        {:else if (page==4)}
+            <h3> How much of these leaders are still alive today? and if not, how did they die?</h3>
+            <p>Hover over the dead rebel leaders to see how they died. </p>
+        {/if}
+        </div>
         {#if (select_page==='overview')}
         <div width={width}>
         <div class='left_container'>
@@ -270,12 +430,22 @@
             stroke='white' 
             anchorPoint={ChooseSide(label)}/>
         {/if}
-      </Graphic>
+        {#if (select && label.dead == 1 && page==4)}
+        <Label 
+            x = {xPos(label)} 
+            y= {label.y+0.015} 
+            text={label_text(label)} 
+            fontSize=24
+            fontWeight= 1000
+            stroke='white' 
+            anchorPoint={ChooseSide(label)}/>
+        {/if}
+      </Graphic >
         </div>
     <div class='right_container'>
       {#if (simulationEnd)}
       <button class='right_button' on:click={()=> {
-        if(page<4){
+        if(page<6){
             page +=1 
             console.log(page)
             simulationRunning=true}
@@ -285,10 +455,155 @@
       ></button>
       {/if}
     </div>
+    <Graphic {padding} width={width} height='200'>
+        {#if (page==1)}
+        <DiscreteLegend
+            x1={0}
+            x2={0.33}
+            y1={0}
+            y2={1}
+            fill={color_regions.range().slice(0,4)}
+            labels={legend_regions.slice(0,4)}
+            labelFontSize=18
+        >
+        </DiscreteLegend>
+
+        <DiscreteLegend
+        x1={0.33}
+        x2={0.66}
+        y1={0}
+        y2={1}
+        fill={color_regions.range().slice(4,8)}
+        labels={legend_regions.slice(4,8)}
+        labelFontSize=18
+        >
+        </DiscreteLegend>
+
+        <DiscreteLegend
+        x1={0.66}
+        x2={0.99}
+        y1={0}
+        y2={1}
+        fill={color_regions.range().slice(8,12)}
+        labels={legend_regions.slice(8,12)}
+        labelFontSize=18
+        >
+        </DiscreteLegend>
+        {/if}
+
+        {#if (page==2)}
+        <DiscreteLegend
+            x1={0}
+            x2={0.33}
+            y1={0}
+            y2={1}
+            fill={color_religions.range().slice(0,2)}
+            labels={legend_religions.slice(0,2)}
+            labelFontSize=18
+        >
+        </DiscreteLegend>
+
+        <DiscreteLegend
+        x1={0.33}
+        x2={0.66}
+        y1={0}
+        y2={1}
+        fill={color_religions.range().slice(2,4)}
+        labels={legend_religions.slice(2,4)}
+        labelFontSize=18
+        >
+        </DiscreteLegend>
+
+        <DiscreteLegend
+        x1={0.66}
+        x2={0.99}
+        y1={0}
+        y2={1}
+        fill={add_gray(color_religions.range().slice(4,5))}
+        labels={legend_religions.slice(4,6)}
+        labelFontSize=18
+        >
+        </DiscreteLegend>
+        {/if}
+
+        {#if (page==3)}
+        <DiscreteLegend
+            x1={0}
+            x2={0.33}
+            y1={0}
+            y2={1}
+            fill={color_education.range().slice(0,3)}
+            labels={legend_education.slice(0,3)}
+            labelFontSize=18
+        >
+        </DiscreteLegend>
+
+        <DiscreteLegend
+        x1={0.33}
+        x2={0.66}
+        y1={0}
+        y2={1}
+        fill={color_education.range().slice(3,5)}
+        labels={legend_education.slice(3,5)}
+        labelFontSize=18
+        >
+        </DiscreteLegend>
+
+        <DiscreteLegend
+        x1={0.66}
+        x2={0.99}
+        y1={0}
+        y2={1}
+        fill={add_gray(color_education.range().slice(5,6))}
+        labels={add_no_information(legend_education.slice(5,6))}
+        labelFontSize=18
+        >
+        </DiscreteLegend>
+        {/if}
+
+        {#if (page==4)}
+        <DiscreteLegend
+            x1={0}
+            x2={0.33}
+            y1={0}
+            y2={1}
+            fill={color_dead.range().slice(0,1)}
+            labels={legend_dead.slice(0,1)}
+            labelFontSize=18
+        >
+        </DiscreteLegend>
+
+        <DiscreteLegend
+        x1={0.33}
+        x2={0.66}
+        y1={0}
+        y2={1}
+        fill={color_dead.range().slice(1,2)}
+        labels={legend_dead.slice(1,2)}
+        labelFontSize=18
+        >
+        </DiscreteLegend>
+
+        <DiscreteLegend
+        x1={0.66}
+        x2={0.99}
+        y1={0}
+        y2={1}
+        fill={'grey'}
+        labels={legend_dead.slice(2,3)}
+        labelFontSize=18
+        >
+        </DiscreteLegend>
+        {/if}
+        
+
+
+      </Graphic>
      </div>
         {/if}
 
     <style>
+    .text{padding-left:20px;}
     .left_container{
         width:40px;
         height:650px;
