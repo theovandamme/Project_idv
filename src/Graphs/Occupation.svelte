@@ -166,7 +166,7 @@ console.log(labelEntrymethod)
         
     </Graphic> 
     {#if (correct_DC)}
-    <Graphic width={width} height={650} {scaleX} {scaleY} flipY padding={{left: 40, right:10, top: 25, bottom: 40}}>
+    <Graphic width={width} height={400} {scaleX} {scaleY} flipY padding={{left: 40, right:10, top: 25, bottom: 40}}>
         <RectangleLayer 
         x1={leaders_occupation.column('occupation')} 
         x2={x2s(leaders_occupation.column('occupation'))} 
@@ -176,7 +176,7 @@ console.log(labelEntrymethod)
         fill={leaders_occupation.column('occupation').map(scaleColor_occupation)}
         />
 
-        <XAxis title="Occupation" labelRotate=75 labelOffset=5 labelFontSize=7 tickSize=11/> X axis with rotated labels
+        <XAxis title="Occupation" labelRotate=75 labelOffset=5 labelFontSize=9 tickSize=11/> X axis with rotated labels
         <YAxis title='Count'/> 
     </Graphic>
     {/if}
