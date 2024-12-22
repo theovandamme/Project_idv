@@ -13,8 +13,10 @@
     export let width
     export let raw_data
 
-    console.log(width)
-    let grap_width
+
+    let final_text_width = 1000
+    $: charts_width = final_text_width/2
+    $: console.log(charts_width)
     let test = DC_raw.rows()
     let select = false
     let label
@@ -25,7 +27,6 @@
     let legend_regions = DC_raw.domain('Region')
     let legend_religions = DC_raw.domain('religion')
     legend_religions.push('No information')
-    console.log(legend_religions.push('no information'))
     let legend_education = ["No/incomplete primary", "Finished primary", "Finished secondary","Obtained Bachelor's","Obtained Master's","Obtained Doctorate"]
     let legend_dead = ['Alive', 'Dead', 'No information']
 
@@ -34,7 +35,6 @@
     let color_religions = scaleOrdinal(DC_raw.domain('religion'), schemeSet3).unknown('grey')
     let color_education = scaleOrdinal(legend_education, schemeSet3).unknown('grey')
     let color_dead = scaleOrdinal(DC_raw.domain('dead'), schemeSet3).unknown('grey')
-    console
 
     function make_color(page, node){
         if (page ==0){
@@ -121,7 +121,6 @@
         .on('end', () => {
             simulationEnd = true
             simulationRunning = false
-            console.log(simulationRunning)
             test = test
             })
 
@@ -178,7 +177,6 @@
             let minY = DC_test.min('y')
             test.map((value)=> value.x = (value.x - minX)/(maxX-minX))
             test.map((value)=> value.y = (value.y - minY)/(maxY-minY))
-            console.log('1done')
         });
 
 
@@ -240,7 +238,6 @@
             let minY = DC_test.min('y')
             test.map((value)=> value.x = (value.x - minX)/(maxX-minX))
             test.map((value)=> value.y = (value.y - minY)/(maxY-minY))
-            console.log('1done')
         });
 
 
@@ -303,7 +300,6 @@
             let minY = DC_test.min('y')
             test.map((value)=> value.x = (value.x - minX)/(maxX-minX))
             test.map((value)=> value.y = (value.y - minY)/(maxY-minY))
-            console.log('1done')
         });
 
 
@@ -316,7 +312,6 @@
         let links = []
         for (let i = 0; i < dead.length; i++){
             let ded = dead[i]
-            console.log(ded)
             let Dead_DC = DC_raw.filter(row => row.dead === ded).column('fullbirthname')
                 Dead_DC.forEach((element)=>{
                     for (let i = 0; i < Dead_DC.length; i++){
@@ -366,7 +361,6 @@
             let minY = DC_test.min('y')
             test.map((value)=> value.x = (value.x - minX)/(maxX-minX))
             test.map((value)=> value.y = (value.y - minY)/(maxY-minY))
-            console.log('1done')
         });
 
 
@@ -409,8 +403,8 @@
         {/if}
         </div>
         {#if (page<5)}
-        <div width={width-80} min-width=4000 bind:clientWidth={grap_width} class='graph'>
-      <Graphic  width={width-80} min-width=6000 height='650' scaleX={scale_x} scaleY={scale_y} >
+        <div width={width-80} min-width=4000 class='graph'>
+      <Graphic  width={width-80} height='650' scaleX={scale_x} scaleY={scale_y} >
         {#each test as node}
         <Point
         x = {node.x}
@@ -446,16 +440,27 @@
       </Graphic >
         </div>
         {:else}
-            <div>
+            <div class='final_text' width={width-80}>
+            <div >
                 <h3> This data orginates from the Rebel Organization Leaders (ROLE) database. The investigators for the creation of this database are Benjamin Acosta, Reyko Huang and Daniel Silverman. It was created with the aim to study how leader attributtes, backgrounds and experiences shape the conflict in which they are active. If you wish more information about ROLE, you can visit their <a href="https://www.rebelleaders.org"> website</a> </h3>
             </div>
+            <div class='charts' >
+                <h4>
+                    We used the ROLE dataset to make some graphs with the goal to explore the data. We also created graphs based on the findings of the studies conducted using the ROLE database. You can explore these graphs for the whole world or a specific region in the <a on:click={()=> select_page='charts'}> charts page</a>. A slightly modified version of the ROLE database can also be downloaded there if you would like to explore the data on your own. 
+                </h4>
+            </div>
+            <div>
+                <h4>
+                    If you are interested by a specific leader and their characteristics, you can go look for them on the <a on:click={()=> select_page='search'}> search page</a>
+                </h4>
+            </div>
+            </div>  
         {/if}
     <div class='right_container'>
       {#if (simulationEnd) && page < 5}
       <button class='right_button' on:click={()=> {
         if(page<6){
             page +=1 
-            console.log(page)
             simulationRunning=true}
         }}><img 
       src='./static/arrow_forward.svg'   
@@ -613,9 +618,12 @@
         {/if}
 
     <style>
+    a{text-decoration: underline;
+      cursor: pointer;}
+    .final_text{padding-left: 60px;}
     .text{padding-left:20px;}
     .left_container{
-        width:40px;
+        width:charts_width;
         height:650px;
         float:left;
         
