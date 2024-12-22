@@ -1,5 +1,5 @@
 <script>
-  import { scaleLinear, scalePoint, scaleOrdinal } from 'd3-scale'
+  import { scaleLinear, scalePoint, scaleOrdinal, scaleBand } from 'd3-scale'
   import { schemeCategory10 } from 'd3-scale-chromatic'
   import { Section, PointLayer, XAxis, YAxis, DiscreteLegend, Label, Graphic } from '@snlab/florence'
   import DataContainer from '@snlab/florence-datacontainer'
@@ -9,18 +9,17 @@
   export let width
 
   let unique_leaders_yup
+  let scaleX
+  let scaleY
   let scaleCombat
   let scaleEducation
   let scaleRadius
   let regionColorScale
   let padding
 
+
   let educ = ["No/incomplete primary", "Finished primary", "Finished secondary","Obtained Bachelor's", "Obtained Master's, Obtained Bachelor's","Obtained Master's","Obtained Doctorate"]
 
-  function safeMean(values) {
-    const validValues = values.filter(v => v != null && !isNaN(v));
-    return validValues.length > 0 ? validValues.reduce((a, b) => a + b) / validValues.length : null;
-  } 
 
         $: unique_leaders_yup = DC_raw
             .filter(row => row.combat == "1.0" || row.combat == "0.0") 
@@ -29,16 +28,34 @@
         $: educ_scale = educ.filter((educ)=> unique_leaders_yup.column('education').includes(educ))
 
 
-        $: unique_leaders_yup = unique_leaders_yup
+        $: unique_leaders_yep = unique_leaders_yup
             .select(['combat', 'education', 'km_a'])
-        $: unique_leaders_yup = unique_leaders_yup
             .groupBy(['education', 'combat'])
-            .filter(r => r.km_a != null && !isNaN(r.km_a))
-            .summarize({ mean_km_a: d => safeMean(d.km_a) })
+            // .filter(r => r.km_a != null && !isNaN(r.km_a))
+            .summarise({ mean_km_a: {km_a: 'mean'} })
 
-        $: console.log(unique_leaders_yup)
 
-        // $: scaleX = scalePoint()
+
+        $: combatDomain = ['0.0', '1.0']
+        $: scaleCombat = scalePoint()
+            .domain(unique_leaders_yep.domain('combat'))
+            .padding(0.7)
+
+        $: educationDomain = ["No/incomplete primary", "Finished primary", "Finished secondary","Obtained Bachelor's", "Obtained Master's, Obtained Bachelor's","Obtained Master's","Obtained Doctorate"]
+        $: scaleEducation = scalePoint()
+            .domain(educ_scale)
+            .padding(0.2) 
+
+        $: maxMeanKma = unique_leaders_yep.max('mean_km_a') 
+        $: scaleRadius = scaleLinear()
+            .domain([0, maxMeanKma])
+            .range([3, 54]) // Adjust these values to change the size range of the dots
+        
+        $: console.log(unique_leaders_yep)
+        
+        
+
+        // $: scaleX = scalePoint() 
         //     .domain(unique_leaders_yup.domain('combat'))
         //     .padding(0.75) 
 
@@ -53,23 +70,24 @@
         //     .domain([0, maxMeanFatalities])
         //     .range([2, 50])
 
-  // regionColorScale = scaleOrdinal()
-  //   .domain(DC_raw.domain('Region'))
-  //   .range(schemeSet3) 
+  regionColorScale = scaleOrdinal()
+    .domain(DC_raw.domain('Region'))
+    .range(schemeSet3) 
 
   padding = { left: 200, bottom: 40, top: 10, right: 10 }
 </script>
 
 <Graphic width={width} height={600}>
-  <!-- <Section
+  <Section
     x1={0}
     x2={1}
     y1={0}
     y2={1}
-    {scaleX}
-    {scaleY}
+    scaleX = {scaleCombat}
+    scaleY = {scaleEducation}
     {padding}
-  > -->
+    flipY
+  >
 
     <!-- <PointLayer
       x={unique_leaders_yup.column('combat')}
@@ -78,8 +96,16 @@
       fill={unique_leaders_yup.map('Region', r => regionColorScale(r))}
       opacity={0.7}
     /> -->
+    <PointLayer
+    x={unique_leaders_yep.column('combat')}
+    y={unique_leaders_yep.column('education')}
+    radius={unique_leaders_yep.map('mean_km_a', scaleRadius)}
+    fill={unique_leaders_yup.map('Region', row => regionColorScale(row))}
 
-    <!-- <XAxis 
+    opacity={0.7}
+    />
+
+    <XAxis 
       title="Combat Experience"
       labelFormat={d => d}
       labelFont="Courier"
@@ -90,11 +116,11 @@
       title="Education Level"
       labelFont="Courier"
       titleFont="Courier"
-      titleXOffset={-30}
+      titleXOffset={-120}
       labelFontSize={8}
-    /> -->
+    />
 
-  <!-- </Section> -->
+  </Section>
 
   <!-- <Label
     x={0.5}

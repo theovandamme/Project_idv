@@ -23,7 +23,7 @@
     </script>
       {#if (DC_raw.column('Region')[0] != 'Oceania')}
       <Graphic  width={width} height='650'
-      scaleX = {scaleBand().domain(educ_scale).padding(0.1).paddingOuter(0.5)}
+      scaleX = {scaleBand().domain(educ_scale).padding(0.1)}
       scaleY = {scaleLinear().domain([0,Math.max(1,...education_DC.column('$grouped').map((x)=> x.nrow()|| 0))]).nice()}
       flipY
       {padding}>
