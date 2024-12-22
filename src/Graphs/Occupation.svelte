@@ -1,7 +1,7 @@
 <script>
 import { Graphic, Section, RectangleLayer, PointLayer, Line, XAxis, YAxis, x2s,LabelLayer} from '@snlab/florence'
 import { regressionLinear } from 'd3-regression'
-import { schemeSpectral,interpolateSpectral,interpolatePuOr } from 'd3-scale-chromatic';
+import { schemeSpectral,interpolateSpectral,schemeTableau10 } from 'd3-scale-chromatic';
 import { scaleLinear, scaleBand, scaleTime, scaleOrdinal } from 'd3-scale'
 import DataContainer from '@snlab/florence-datacontainer'
 export let DC_raw // Store parsed data
@@ -41,9 +41,7 @@ function defineScalecolor_entry(domain) {
     return scaleOrdinal()
         .domain(domain)
         .range(
-            Array.from({ length: domain.length }, (_, i) =>
-            interpolatePuOr(i / (domain.length - 1))
-            )
+            schemeTableau10
         );
 }
 

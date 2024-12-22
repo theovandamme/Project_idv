@@ -19,7 +19,9 @@
 
     let divElement
     let width, height
-    
+    let Charts =[Age_VS_LD,FatalCombatEduc,FatalConflict,Occupation] // array with different charts 
+    let ChartName=['Leadership age versus years in power','Fatalities versus Education and Combat Experience','Education level','Fatality and duration of conflicts','leaders occupation']
+    let selectedChart = ''
     let selected_region = 'the world'
     let selected_variable = ''
     $: if (progress) {
@@ -36,12 +38,19 @@
   }
 
   // the div element where i use divElement is graph_and_description
-  $: if (selected_variable !==''){console.log(divElement)}
+  // $: if (selected_variable !==''){console.log(divElement)}
     // this works fine 
   // $: console.log(divElement.querySelectorAll('svg')) // this doesn't
   // overall settings
   const padding = { left: 80, bottom: 40, top: 5, right: 10 }
   const color = 'rgb(93, 134, 156)'
+
+  // Function to handle button click
+  function showChart(index) {
+    selected_variable= ''
+    selected_variable = ChartName[index];
+    console.log(selected_variable)
+  }
 
     </script>
       <div  id='chart_page' class = 'page' >
@@ -50,15 +59,20 @@
           <h2 class = 'charts'>Charts</h2>
 
           <p class = 'charts'>Please select the data you would like to visualize</p>
+          {#each ChartName as item, i}
+             <button on:click={() => showChart(i)}>
+                {item}
+              </button>
+            {/each}
 
-          <select bind:value={selected_variable} class='selector sel1'>
+          <!-- <select bind:value={selected_variable} class='selector sel1'>
             <option value=''> --Choose an option</option>
             <option value= 'LeadAge_VS_YIP' >Leadership age versus years in power</option>
             <option value= 'Education' >Education level</option>
             <option value= 'FatalConflicts' >Fatality and duration of conflicts</option>
             <option value= 'Leader_occupation' >Leaders occupation</option>
             <option value= 'FatalCombatEducation' >Fatalities versus Education and Combat Experience</option>
-          </select>
+          </select> -->
 
           <p class = 'charts'>And the region of interest</p>
           <select bind:value={selected_region} name ="provinces" id='select_provinces' class='selector sel2'>
@@ -72,7 +86,7 @@
           </Worldmap>
 
           <div bind:this={divElement} class= 'graph_and_description' >
-          {#if (selected_variable == 'LeadAge_VS_YIP')}
+          <!-- {#if (selected_variable == 'LeadAge_VS_YIP')}
          
           <Age_VS_LD
           DC_raw = {unique_leaders}
@@ -91,6 +105,30 @@
           width = {width}
           DC_raw={unique_leaders}/>
           {:else if (selected_variable=='Leader_occupation')}
+          <Occupation 
+          width={width}
+          selected_region={selected_region}
+          DC_raw={unique_leaders}/>
+          {/if} -->
+          {#if (selected_variable == 'Leadership age versus years in power')}
+         
+          <Age_VS_LD
+          DC_raw = {unique_leaders}
+          width = {width}
+          region = {selected_region}/>
+          {:else if (selected_variable=='Education level')}
+          <Education
+          DC_raw = {unique_leaders}
+          width = {width}/>
+          {:else if (selected_variable=='Fatalities versus Education and Combat Experience')}
+          <FatalCombatEduc 
+          width = {width}
+          DC_raw={unique_leaders}/>
+          {:else if (selected_variable=='Fatality and duration of conflicts')}
+          <FatalConflict 
+          width = {width}
+          DC_raw={unique_leaders}/>
+          {:else if (selected_variable=='leaders occupation')}
           <Occupation 
           width={width}
           selected_region={selected_region}
@@ -142,4 +180,22 @@
 
       }          
 .export {margin-top: -30px;}
+button {
+  background-color: #24ba83; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 8px;
+}
+button:hover {
+  background-color: #e8eeec;
+  color: rgb(16, 3, 3);
+}
     </style>
