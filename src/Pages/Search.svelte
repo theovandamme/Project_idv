@@ -145,7 +145,6 @@
        <p>Imprisoned before becoming rebel leader: No data available</p>
       {/if}
 
-      
       {/if}
      <!--
     //placeofbirth,leadershipage,dynamicage,entrymethod,powersharing,education,areaofstudy,cat_areaofstudy1,cat_areaofstudy2,educusuk,educwest,married,marriageage,children,religion,family,affiliation,physical,mental,occupation,military,nsmilitary,combat,govpost,exile,studyab,studyab_yr_total,studyab_level,studyab_countries,milab,workab,expabroad,prison,assassin,deathcause,languages,nomdeguerrekunya,alsoknownasaka,stname
