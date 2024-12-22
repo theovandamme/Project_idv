@@ -380,7 +380,7 @@
         <h3> You can now see the 425 rebel leaders who were active between 1980 and 2011. This does not give us much of an idea of who these people are. Who did they fight against? </h3>
         <p>Hover over the leaders to see who they are.</p>
         {:else if (page==1)}
-            <h3> The leaders are now grouped by region in which the country against which they were fighting is located. What about more personal attributes?  </h3>
+            <h3> The leaders are now grouped by region in which the country against which they were fighting with is located. What about more personal attributes?  </h3>
         {:else if (page==2)}
             <h3>Such as their beliefs?</h3>
         {:else if (page==3)}
@@ -388,10 +388,12 @@
         {:else if (page==4)}
             <h3> How much of these leaders are still alive today? and if not, how did they die?</h3>
             <p>Hover over the dead rebel leaders to see how they died. </p>
+            
         {/if}
         </div>
         {#if (select_page==='overview')}
-        <div width={width}>
+        <div width={width-20}>
+
         <div class='left_container'>
         {#if (simulationEnd && page>0)}
             <button class='left_button' 
@@ -406,8 +408,9 @@
             </button>
         {/if}
         </div>
-        <div width={width-80} bind:clientWidth={grap_width} class='graph'>
-      <Graphic  width={width-80} height='650' scaleX={scale_x} scaleY={scale_y} >
+        {#if (page<5)}
+        <div width={width-80} min-width=4000 bind:clientWidth={grap_width} class='graph'>
+      <Graphic  width={width-80} min-width=6000 height='650' scaleX={scale_x} scaleY={scale_y} >
         {#each test as node}
         <Point
         x = {node.x}
@@ -442,8 +445,13 @@
         {/if}
       </Graphic >
         </div>
+        {:else}
+            <div>
+                <h3> This data orginates from the Rebel Organization Leaders (ROLE) database. The investigators for the creation of this database are Benjamin Acosta, Reyko Huang and Daniel Silverman. It was created with the aim to study how leader attributtes, backgrounds and experiences shape the conflict in which they are active. If you wish more information about ROLE, you can visit their <a href="https://www.rebelleaders.org"> website</a> </h3>
+            </div>
+        {/if}
     <div class='right_container'>
-      {#if (simulationEnd)}
+      {#if (simulationEnd) && page < 5}
       <button class='right_button' on:click={()=> {
         if(page<6){
             page +=1 
@@ -455,6 +463,7 @@
       ></button>
       {/if}
     </div>
+    {#if (page<5)}
     <Graphic {padding} width={width} height='200'>
         {#if (page==1)}
         <DiscreteLegend
@@ -599,6 +608,7 @@
 
 
       </Graphic>
+    {/if}
      </div>
         {/if}
 
