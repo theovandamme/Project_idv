@@ -5,6 +5,7 @@
   import { schemePaired,schemeSet3 } from 'd3-scale-chromatic';
   import DataContainer from '@snlab/florence-datacontainer';
   import { WorldRegions } from '/src/Helpers/WorldRegionExport.js';
+  import color_region from '/src/Graphs/Overview_graph.svelte'
 
 
 
@@ -17,30 +18,46 @@
   const myColorScale = scaleOrdinal() // 2. fill color
     .domain(WRegions.domain('region'))
     .range(schemeSet3);
+    // const myColorScale = scaleOrdinal().domain(WRegions.domain('region'))
+    //   .range(color_region)
 
     
   // 3. Mouseover behavior
   let active = '';
   let RegionData
-  $: Region = active ? (WRegions.row({key:active}))['region'] : ''
-  $:if (active !== ''){
-    RegionData=WRegions.filter(row=>row.region === Region)
-    console.log(RegionData)
-  } else {
-    RegionData = WRegions
-  }
+  $: Region = active ? (WRegions.row({key:active}))['region'] : 'the world'
+  // $:if (active !== ''){
+  //   RegionData=WRegions.filter(row=>row.region === Region)
+  //   console.log(RegionData)
+  // } else {
+  //   RegionData = WRegions
+  // }
 
+  // $: Region =(WRegions.row({key:active}))['region'] 
+  $: RegionData=WRegions.filter(row=>row.region === Region)
+   $: console.log(RegionData)
+  
 
 function handleMouseover(event) {
   active = event.key; // Update the active key
-
-function handleClick(event){
-}
-  
 }
   function handleMouseout() {
     active = '' // Reset active
     // console.log("Mouseout: Active Key Reset");
+  }
+
+  /////// handle clicks
+
+  let selected_region = 'the world'
+  let click = false
+$:console.log('the selected region:',selected_region)
+  function handleClick(){
+  click = true
+}
+ $:if (click){
+    selected_region=Region
+  }else{
+    selected_region='the world'
   }
 </script>
 
@@ -55,6 +72,7 @@ function handleClick(event){
         keys={WRegions.column('COUNTRY')}
         onMouseover={handleMouseover}
         onMouseout={handleMouseout}
+        onClick={handleClick}
       />
       <!-- trying to add the selected region on top  -->
       {#if active !== ''}

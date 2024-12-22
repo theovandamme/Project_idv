@@ -280,7 +280,7 @@
                 transform: rotate(0deg)}     
 
 :global(body){
-  background-color:#D1e8E2;
+  background-color:#ebebeb;
   color:#116466;
 }
 
