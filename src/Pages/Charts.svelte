@@ -123,7 +123,8 @@
           {:else if (selected_variable=='Fatalities versus Education and Combat Experience')}
           <FatalCombatEduc 
           width = {width}
-          DC_raw={unique_leaders}/>
+          DC_raw={unique_leaders}
+          selected_region={selected_region}/>
           {:else if (selected_variable=='Fatality and duration of conflicts')}
           <FatalConflict 
           width = {width}

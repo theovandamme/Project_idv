@@ -7,6 +7,7 @@
 
   export let DC_raw
   export let width
+  export let selected_region
 
   let unique_leaders_yup
   let scaleX
@@ -49,7 +50,7 @@
         $: maxMeanKma = unique_leaders_yep.max('mean_km_a') 
         $: scaleRadius = scaleLinear()
             .domain([0, maxMeanKma])
-            .range([3, 54]) // Adjust these values to change the size range of the dots
+            .range([3, 54])
         
         $: console.log(unique_leaders_yep)
         
@@ -82,7 +83,7 @@
     x1={0}
     x2={1}
     y1={0}
-    y2={1}
+    y2={0.9}
     scaleX = {scaleCombat}
     scaleY = {scaleEducation}
     {padding}
@@ -100,7 +101,7 @@
     x={unique_leaders_yep.column('combat')}
     y={unique_leaders_yep.column('education')}
     radius={unique_leaders_yep.map('mean_km_a', scaleRadius)}
-    fill={unique_leaders_yup.map('Region', row => regionColorScale(row))}
+    fill={DC_raw.map('Region', row => row === selected_region ? regionColorScale(row) : "gray")}
 
     opacity={0.7}
     />
@@ -122,16 +123,16 @@
 
   </Section>
 
-  <!-- <Label
-    x={0.5}
-    y={0.98}
-    text="Terrorism Fatalities by Combat Experience and Education"
+  <Label
+    x={0.55}
+    y={0.95}
+    text="Mean Terrorism Fatalities by Combat Experience and Level of Education"
     fontFamily="Courier"
     fontSize={18}
-    fontWeight={800}
+    fontWeight={600}
   />
 
-  <DiscreteLegend
+  <!-- <DiscreteLegend
     x1={0.75} x2={1}
     y1={0} y2={0.25}
     yDivider={0}
