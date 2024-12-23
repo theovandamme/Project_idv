@@ -4,10 +4,14 @@
   import { Section, PointLayer, XAxis, YAxis, DiscreteLegend, Label, Graphic } from '@snlab/florence'
   import DataContainer from '@snlab/florence-datacontainer'
   import { schemeSet3 } from 'd3-scale-chromatic'
+  import { color } from 'd3-color'
+
 
   export let DC_raw
   export let width
   export let selected_region
+  export let darkenedSchemeSet3
+
 
   let unique_leaders_yup
   let scaleX
@@ -18,7 +22,7 @@
   let regionColorScale
   let padding
 
-
+  
   let educ = ["No/incomplete primary", "Finished primary", "Finished secondary","Obtained Bachelor's", "Obtained Master's, Obtained Bachelor's","Obtained Master's","Obtained Doctorate"]
 
 
@@ -35,8 +39,6 @@
             // .filter(r => r.km_a != null && !isNaN(r.km_a))
             .summarise({ mean_km_a: {km_a: 'mean'} })
 
-
-
         $: combatDomain = ['0.0', '1.0']
         $: scaleCombat = scalePoint()
             .domain(unique_leaders_yep.domain('combat'))
@@ -44,13 +46,13 @@
 
         $: educationDomain = ["No/incomplete primary", "Finished primary", "Finished secondary","Obtained Bachelor's", "Obtained Master's, Obtained Bachelor's","Obtained Master's","Obtained Doctorate"]
         $: scaleEducation = scalePoint()
-            .domain(educ_scale)
+            .domain(educationDomain)
             .padding(0.2) 
 
         $: maxMeanKma = unique_leaders_yep.max('mean_km_a') 
         $: scaleRadius = scaleLinear()
             .domain([0, maxMeanKma])
-            .range([3, 54])
+            .range([3, 42])
         
         $: console.log(unique_leaders_yep)
         
@@ -73,7 +75,7 @@
 
   regionColorScale = scaleOrdinal()
     .domain(DC_raw.domain('Region'))
-    .range(schemeSet3) 
+    .range(darkenedSchemeSet3) 
 
   padding = { left: 200, bottom: 40, top: 10, right: 10 }
 </script>
@@ -101,14 +103,16 @@
     x={unique_leaders_yep.column('combat')}
     y={unique_leaders_yep.column('education')}
     radius={unique_leaders_yep.map('mean_km_a', scaleRadius)}
-    fill={DC_raw.map('Region', row => row === selected_region ? regionColorScale(row) : "gray")}
+    fill={DC_raw.map('Region', row => row === selected_region ? regionColorScale(row) : "#3D3D3D")}
+    stroke='grey'
+    fillOpacity={0.8}
 
-    opacity={0.7}
+    
     />
 
     <XAxis 
       title="Combat Experience"
-      labelFormat={d => d}
+      labelFormat={d => d === 1.0 ? "Yes" : "No"}
       labelFont="Courier"
       titleFont="Courier"
       titleYOffset={30}

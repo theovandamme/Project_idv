@@ -11,9 +11,12 @@
     import { Section, RectangleLayer, XAxis, YAxis, YGridLines, XGridLines, DiscreteLegend, Label, Graphic} from '@snlab/florence'
     import DataContainer from '@snlab/florence-datacontainer'
     import { schemeSet3 } from 'd3-scale-chromatic'
+    import { color } from 'd3-color'
+
 
     export let DC_raw
     export let width
+    export let darkenedSchemeSet3
 
 
     
@@ -28,6 +31,7 @@
 
     
         const thicknessFactor = 1.15; // to control thickness of bars, as I'm using a log scale
+
 
         $: unique_leaders_yap = DC_raw.mutate({
             x1: r => r.ldrstwar_year,
@@ -57,7 +61,7 @@
 
         regionColorScale = scaleOrdinal()
             .domain(DC_raw.domain('Region'))
-            .range(schemeSet3);
+            .range(darkenedSchemeSet3);
 
 
         
@@ -72,7 +76,7 @@
         
 
 padding = { left: 50, bottom: 40, top: 10, right: 10 }
-const color = 'rgb(93, 134, 156)'
+
 </script>
 
 <!-- The zoom function for the RectangleLayer crashes by certain input.

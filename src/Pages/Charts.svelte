@@ -4,6 +4,8 @@
     import { regressionLinear } from 'd3-regression'
     import { scaleLinear, scaleBand, scaleTime } from 'd3-scale'
     import DataContainer from '@snlab/florence-datacontainer'
+    import { schemeSet3 } from 'd3-scale-chromatic'
+    import { color } from 'd3-color'
 
     import Age_VS_LD from '../Graphs/AgeVSLeadershipDuration.svelte'
     import Worldmap from './Worldmap.svelte'
@@ -13,6 +15,8 @@
     import FatalCombatEduc from '../Graphs/FatalCombatEduc.svelte'
     import FatalConflict from '../Graphs/FatalConflict.svelte'
     import Occupation from '../Graphs/Occupation.svelte'
+
+
     export let unique_leaders_raw
     export let progress
     export let unique_leaders
@@ -24,6 +28,8 @@
     let selectedChart = ''
     let selected_region = 'the world'
     let selected_variable = ''
+    let darkenedSchemeSet3 = schemeSet3.map(c => color(c).darker(0.7).toString())
+
     $: if (progress) {
 
     {if (selected_region == 'the world'){
@@ -43,7 +49,7 @@
   // $: console.log(divElement.querySelectorAll('svg')) // this doesn't
   // overall settings
   const padding = { left: 80, bottom: 40, top: 5, right: 10 }
-  const color = 'rgb(93, 134, 156)'
+  // const color = 'rgb(93, 134, 156)'
 
   // Function to handle button click
   function showChart(index) {
@@ -119,16 +125,20 @@
           {:else if (selected_variable=='Education level')}
           <Education
           DC_raw = {unique_leaders}
-          width = {width}/>
+          width = {width}
+          selected_region = {selected_region}
+          darkenedSchemeSet3={darkenedSchemeSet3}/>
           {:else if (selected_variable=='Fatalities versus Education and Combat Experience')}
           <FatalCombatEduc 
           width = {width}
           DC_raw={unique_leaders}
-          selected_region={selected_region}/>
+          selected_region={selected_region}
+          darkenedSchemeSet3={darkenedSchemeSet3}/>
           {:else if (selected_variable=='Fatality and duration of conflicts')}
           <FatalConflict 
           width = {width}
-          DC_raw={unique_leaders}/>
+          DC_raw={unique_leaders}
+          darkenedSchemeSet3={darkenedSchemeSet3}/>
           {:else if (selected_variable=='leaders occupation')}
           <Occupation 
           width={width}
