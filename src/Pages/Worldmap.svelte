@@ -94,12 +94,14 @@ $:console.log('the selected region:',selected_region)
   .graph {
     font-family: Arial, sans-serif;
   }
-
+  .main-chart{
+    position:absolute;
+  }
   p {
     position:absolute;
-    top: 200px;
+    top: 20px;
 
-    left: 450px;
+    left: 1050px;
     background: white;
     padding: 5px 5px;
     border: 1px solid #ccc;

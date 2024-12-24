@@ -64,6 +64,10 @@
         <div class = 'graph1' bind:clientWidth={width} bind:clientHeight={height}>
           <h2 class = 'charts'>Charts</h2>
 
+          <div class='selection-map-container'> 
+
+          <div class = 'selections'>
+
           <p class = 'charts'>Please select the data you would like to visualize</p>
           {#each ChartName as item, i}
              <button on:click={() => showChart(i)}>
@@ -82,14 +86,18 @@
 
           <p class = 'charts'>And the region of interest</p>
           <select bind:value={selected_region} name ="provinces" id='select_provinces' class='selector sel2'>
-            <option value='the world'> The world</option>
+            <option value='the world'> The world</option> 
             {#each unique_leaders_raw.domain('Region').filter(val => val !=='Oceania') as item}
             <option value={item}> {item}</option>
             {/each}
           </select>
+          </div>
+          <div class='worldmap'>
           <Worldmap>
 
           </Worldmap>
+          </div>
+          </div>
 
           <div bind:this={divElement} class= 'graph_and_description' >
           <!-- {#if (selected_variable == 'LeadAge_VS_YIP')}
@@ -163,15 +171,34 @@
 
     <style>
 
+
 .page {width:85.3%;
         
           height:740px;
           float:left;
         }
+/* .box{
+  background-color: lightblue;
+  padding: 20px;
+  border: 1px solid blue;
+
+} */
 .charts {margin-left: 20px;
         margin-bottom: 10px;
         margin-top: 10px;
         }
+.selection-map-container{
+  display: grid;
+  grid-template-columns: 60% 40%;
+  grid-column-gap: 5px;
+}
+/* .selection-map-container .box{
+  background: #FFFF00;
+  border: 1px solid red;
+} */
+.selections{
+  width:90%;
+}
 .selector{width: 100%;
                   height: 30px;
                   margin-left:20px;
@@ -179,6 +206,7 @@
 
 .sel2{margin-top: -50px;
       margin-bottom: 10px;
+      margin-left: 20px;
     }
 .graph1 {width:100%;
           
@@ -191,19 +219,23 @@
 
       }          
 .export {margin-top: -30px;}
+.worldmap {
+  width:10%;
+}
 button {
+  
   background-color: #24ba83; /* Green */
   border: none;
   color: white;
   padding: 10px 20px;
   text-align: center;
-  text-decoration: none;
-  display: inline-block;
+  text-decoration:none;
+  display:inline-block;
   font-size: 10px;
-  margin: 4px 2px;
+  margin: 4px 20px;
   transition-duration: 0.4s;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 10px;
 }
 button:hover {
   background-color: #e8eeec;
