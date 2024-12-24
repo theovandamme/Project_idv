@@ -184,6 +184,7 @@
       >
   </div>
 </div>
+  <div class='contents'>
   {#if (select_page=='overview')}
     
     <Overview
@@ -209,6 +210,7 @@
     {:else if (select_page=='about')}
       <Worldmap/>
   {/if}
+  </div>
   
 
 
@@ -227,6 +229,9 @@
   border-bottom-style: solid;
   border-width: 1px;
   border-color:#116466;
+  z-index:9999;
+  position:fixed;
+  background-color: #ebebeb;
   }
 .title{ min-width: 650px;
   height: 30px;}
@@ -236,7 +241,12 @@
   height: 1100px;
   border-right-style: solid;
   border-width: 1px;
-  border-color:#116466;}
+  border-color:#116466;
+  z-index:9998;
+  position:fixed;
+  background: fixed #ebebeb;
+  top:80px;
+}
 .page_selector_closed{width: 60px;
     }
 .page_button {width: 140px;
@@ -278,7 +288,10 @@
 .double_arrow_icon_closed{width: 25px;
                 margin-top: 3px;
                 transform: rotate(0deg)}     
-
+.contents{
+  width:90%;
+  padding:100px;
+}
 :global(body){
   background-color:#ebebeb;
   color:#116466;

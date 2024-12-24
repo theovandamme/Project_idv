@@ -20,7 +20,7 @@
     {#if (!start)}
     <div width={width} class='text'>
       <p>
-        Numerous data is available about state leaders, their attributes, backgrounds and experience. Similar large-scale data about rebel leaders was untill recently non-existing. Have you ever wondered who the rebel leaders were? what kind of background they have and how their background influenced the conflicts in which they were fighting?
+        Numerous data is available about state leaders, their attributes, backgrounds and experience. Similar large-scale data about rebel leaders was untill recently non-existing. Have you ever wondered who the rebel leaders were? What kind of background they have and how their background influenced the conflicts in which they were fighting?
       </p>
     </div>
     <div width={width} class='button'>
@@ -39,7 +39,7 @@
         {/if}
     </div>
 <style>
-    .text {padding-left: 100px;
+    .text {padding-left: 60px;
           padding-right: 5px;
           font-size: larger;}
     .button{ text-align: center;}

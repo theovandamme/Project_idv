@@ -24,7 +24,7 @@
     let divElement
     let width, height
     let Charts =[Age_VS_LD,FatalCombatEduc,FatalConflict,Occupation] // array with different charts 
-    let ChartName=['Leadership age versus years in power','Fatalities versus Education and Combat Experience','Education level','Fatality and duration of conflicts','leaders occupation']
+    let ChartName=['Leadership age versus years in power','Fatalities versus education and combat experience','Education level','Fatality and duration of conflicts',"Leaders' occupation"]  
     let selectedChart = ''
     let selected_region = 'the world'
     let selected_variable = ''
@@ -68,7 +68,7 @@
 
           <div class = 'selections'>
 
-          <p class = 'charts'>Please select the data you would like to visualize</p>
+          <p class = 'charts'>Please select the data you would like to visualize:</p>
           {#each ChartName as item, i}
              <button on:click={() => showChart(i)}>
                 {item}
@@ -84,7 +84,7 @@
             <option value= 'FatalCombatEducation' >Fatalities versus Education and Combat Experience</option>
           </select> -->
 
-          <p class = 'charts'>And the region of interest</p>
+          <p class = 'charts'>And the region of interest:</p>
           <select bind:value={selected_region} name ="provinces" id='select_provinces' class='selector sel2'>
             <option value='the world'> The world</option> 
             {#each unique_leaders_raw.domain('Region').filter(val => val !=='Oceania') as item}
@@ -136,7 +136,7 @@
           width = {width}
           selected_region = {selected_region}
           darkenedSchemeSet3={darkenedSchemeSet3}/>
-          {:else if (selected_variable=='Fatalities versus Education and Combat Experience')}
+          {:else if (selected_variable=='Fatalities versus education and combat experience')}
           <FatalCombatEduc 
           width = {width}
           DC_raw={unique_leaders}
@@ -147,7 +147,7 @@
           width = {width}
           DC_raw={unique_leaders}
           darkenedSchemeSet3={darkenedSchemeSet3}/>
-          {:else if (selected_variable=='leaders occupation')}
+          {:else if (selected_variable=="Leaders' occupation")}
           <Occupation 
           width={width}
           selected_region={selected_region}
@@ -214,10 +214,11 @@
           float:left;
           position: relative;
           color:#116466;}
-.graph_and_description { height:900px;
-                        padding-left: 20px;
-
-      }          
+.graph_and_description { 
+  height:900px;
+  /* padding-left: 20px;
+  margin-top: 20px; */
+}          
 .export {margin-top: -30px;}
 .worldmap {
   width:10%;

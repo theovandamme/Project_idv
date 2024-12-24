@@ -131,13 +131,30 @@ padding = { left: 50, bottom: 40, top: 10, right: 10 }
 
 
         />
-    <XAxis tickCount = {10} labelFormat={d => d} baseLine={false}
-        labelRotate = {0.4} labelFont = "Courier" title="Duration of Conflict" titleFont="Courier" titleYOffset={30}/> 
-    <YAxis tickCount = {4} labelFormat={d => d} baseLine={false}
-        labelRotate = {0.4} labelFontSize = {8} labelFont = "Courier"
-        title="Terrorist Fatalities made" titleFont="Courier" titleXOffset={-30} />
-    <YGridLines opacity = {0.5}/>
-    <XGridLines opacity = {0.5} />
+    <XAxis 
+        tickCount = {10} 
+        labelFormat={d => d} 
+        baseLine={false}
+        labelRotate = {0.4} 
+        labelFont = "Courier" 
+        title="Duration of Conflict" 
+        titleFont="Courier" 
+        titleYOffset={30}
+        /> 
+    <YAxis 
+        tickCount = {4} 
+        labelFormat={d => d} 
+        baseLine={false}
+        labelRotate = {0.4} 
+        labelFontSize = {8} 
+        labelFont = "Courier"
+        title="Terrorist Fatalities made" 
+        titleFont="Courier" 
+        titleXOffset={-30} 
+        />
+        
+    <YGridLines opacity = {0.2} count = {20}/>
+    <XGridLines opacity = {0.15} count = {50} />
 
 </Section>
 

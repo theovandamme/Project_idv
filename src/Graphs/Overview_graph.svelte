@@ -6,6 +6,7 @@
     import DataContainer from '@snlab/florence-datacontainer'
     import { stratify, hierarchy} from 'd3-hierarchy';
     import { schemeSet3 } from 'd3-scale-chromatic'
+    import { color } from 'd3-color'
     import {forceLink, forceCenter, forceSimulation,forceX, forceY, forceManyBody, forceCollide} from 'd3-force';
     export let DC_raw
     export let select_page 
@@ -31,10 +32,12 @@
     let legend_dead = ['Alive', 'Dead', 'No information']
 
     // making of color scales
-    let color_regions = scaleOrdinal(DC_raw.domain('Region'), schemeSet3)
-    let color_religions = scaleOrdinal(DC_raw.domain('religion'), schemeSet3).unknown('grey')
-    let color_education = scaleOrdinal(legend_education, schemeSet3).unknown('grey')
-    let color_dead = scaleOrdinal(DC_raw.domain('dead'), schemeSet3).unknown('grey')
+    let darkenedSchemeSet3 = schemeSet3.map(c => color(c).darker(0.7).toString())
+
+    let color_regions = scaleOrdinal(DC_raw.domain('Region'), darkenedSchemeSet3)
+    let color_religions = scaleOrdinal(DC_raw.domain('religion'), darkenedSchemeSet3).unknown('grey')
+    let color_education = scaleOrdinal(legend_education, darkenedSchemeSet3).unknown('grey')
+    let color_dead = scaleOrdinal(DC_raw.domain('dead'), darkenedSchemeSet3).unknown('grey')
 
     function make_color(page, node){
         if (page ==0){
