@@ -29,7 +29,7 @@
         handleClear
         console.log(leader)
     }
-  
+
     $: possibleItems = items.filter((item)=>item.toLowerCase().includes(searchQuery.toLowerCase()))
 
   </script>
@@ -51,18 +51,25 @@
 
       {/each}
     {/if}
-    <div> 
-      {#if leader}
+
+    
+    {#if leader}
+      <div class = "container"> 
+
       <h2>{leader.column('fullbirthname')}</h2>
+    
+      <a class="image-button" href="https://www.google.com/search?q={leader.column('fullbirthname')}+rebel+leader&tbm=isch" target="_blank">View picture of {leader.column('fullbirthname')} </a>
+     
       <p>Leader of rebelgroup: {leader.column('groupname')}</p>
       <p>Gender: {leader.column('gender')}</p>
       <p>Born in:{leader.column('yearofbirth')}</p>
-      {#if leader.column('yearofdeath')}
+      {#if leader.column('yearofdeath') != '' && leader.column('deathcause') != ''}
         <p>Died in: {leader.column('yearofdeath')}</p>
         <p>Deathcause: {leader.column('deathcause')}</p>
       {:else}
         <p>Still alive</p>
-        {/if}
+      {/if}
+
       <p>Born in: {leader.column('placeofbirth')}</p>
       <p>Conflict involved: {leader.column('confdesc')}</p>
       <p>Fighting against: {leader.column('stname')}</p>
@@ -145,12 +152,68 @@
        <p>Imprisoned before becoming rebel leader: No data available</p>
       {/if}
 
-      {/if}
+      <p> Do you want more info about the rebel leader? <a href="https://www.google.com/search?q={leader.column('fullbirthname')}" target="_blank">Click here</a></p>
+
+
+
+      
      <!--
     //placeofbirth,leadershipage,dynamicage,entrymethod,powersharing,education,areaofstudy,cat_areaofstudy1,cat_areaofstudy2,educusuk,educwest,married,marriageage,children,religion,family,affiliation,physical,mental,occupation,military,nsmilitary,combat,govpost,exile,studyab,studyab_yr_total,studyab_level,studyab_countries,milab,workab,expabroad,prison,assassin,deathcause,languages,nomdeguerrekunya,alsoknownasaka,stname
     --> 
+
     
       </div>
+   {/if}
   </Page>
+
+
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+    
+  h2 {
+    padding-left: 10px;
+  }
   
+  button:hover {
+    background-color: #15b300;
+  }
+  
+    
+  a {
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  p {
+    margin: 10px 0;
+    padding-left: 10px;
+  }
+
+  .image-button {
+    float: right;
+    margin-left: 10px;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    display: inline-block;
+  }
+
+  .image-button:hover {
+    background-color: #0056b3;
+    text-decoration: none;
+  }
+
+</style>
 
