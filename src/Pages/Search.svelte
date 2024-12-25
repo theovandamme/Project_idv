@@ -62,7 +62,7 @@
      
       <p>Leader of rebelgroup: {leader.column('groupname')}</p>
       <p>Gender: {leader.column('gender')}</p>
-      <p>Born in:{leader.column('yearofbirth')}</p>
+      <p>Born in: {leader.column('yearofbirth')}</p>
       {#if leader.column('yearofdeath') != '' && leader.column('deathcause') != ''}
         <p>Died in: {leader.column('yearofdeath')}</p>
         <p>Deathcause: {leader.column('deathcause')}</p>
@@ -153,14 +153,6 @@
       {/if}
 
       <p> Do you want more info about the rebel leader? <a href="https://www.google.com/search?q={leader.column('fullbirthname')}" target="_blank">Click here</a></p>
-
-
-
-      
-     <!--
-    //placeofbirth,leadershipage,dynamicage,entrymethod,powersharing,education,areaofstudy,cat_areaofstudy1,cat_areaofstudy2,educusuk,educwest,married,marriageage,children,religion,family,affiliation,physical,mental,occupation,military,nsmilitary,combat,govpost,exile,studyab,studyab_yr_total,studyab_level,studyab_countries,milab,workab,expabroad,prison,assassin,deathcause,languages,nomdeguerrekunya,alsoknownasaka,stname
-    --> 
-
     
       </div>
    {/if}
