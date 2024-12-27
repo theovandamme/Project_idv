@@ -170,8 +170,9 @@
   <style>
     .search{
       font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-      position: absolute;
-      
+      position: sticky;
+      top:15%;
+      float: left;
       max-width: 180px;
       margin-left: 20px;
       padding-top: 10px;
