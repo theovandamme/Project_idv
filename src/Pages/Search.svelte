@@ -35,7 +35,9 @@
   </script>
   
   <Page>
-    <Navbar title="Searchbar">    <Searchbar
+    <div class='search'>
+    <Navbar title="Search rebel leader">
+      <Searchbar
         slot="subnavbar"
         onInput={handleSearch}
         value={searchQuery}
@@ -51,108 +53,114 @@
 
       {/each}
     {/if}
+    </div>
 
     
     {#if leader}
       <div class = "container"> 
 
-      <h2>{leader.column('fullbirthname')}</h2>
+      <h1>{leader.column('fullbirthname')}</h1>
     
       <a class="image-button" href="https://www.google.com/search?q={leader.column('fullbirthname')}+rebel+leader&tbm=isch" target="_blank">View picture of {leader.column('fullbirthname')} </a>
      
-      <p>Leader of rebelgroup: {leader.column('groupname')}</p>
-      <p>Gender: {leader.column('gender')}</p>
-      <p>Born in: {leader.column('yearofbirth')}</p>
-      {#if leader.column('yearofdeath') != '' && leader.column('deathcause') != ''}
-        <p>Died in: {leader.column('yearofdeath')}</p>
-        <p>Deathcause: {leader.column('deathcause')}</p>
+      <p><b>Leader of rebelgroup:</b> {leader.column('groupname')}</p>
+      {#if !(String(leader.column('popularname')) == String(leader.column('fullbirthname')))}
+        <p><b>Better known as:</b> <i> {leader.column('popularname')}</i></p>
       {:else}
-        <p>Still alive</p>
+        <p><b>Better known as:</b> No alternate name known</p>
+      {/if}  
+      <p><b> Gender:</b> {leader.column('gender')}</p>
+      <p><b>Born in:</b> {leader.column('yearofbirth')}</p>
+      {#if leader.column('yearofdeath') != '' && leader.column('deathcause') != ''}
+        <p><b>Died in:</b> {leader.column('yearofdeath')}</p>
+        <p><b>Deathcause:</b> {leader.column('deathcause')}</p>
+      {:else}
+        <p><b>Still alive</b></p>
       {/if}
 
-      <p>Born in: {leader.column('placeofbirth')}</p>
-      <p>Conflict involved: {leader.column('confdesc')}</p>
-      <p>Fighting against: {leader.column('stname')}</p>
-      <p>Leadership age: {leader.column('leadershipage')}</p>
-      <p>Entry method as leader: {leader.column('entrymethod')}</p>
-      <p>Level of education achieved: {leader.column('education')}</p>
-      <p>Occupation category before rebel leader: {leader.column('occupation')}</p>
-      <p>Religion: {leader.column('religion')}</p>
+      <p><b>Born in:</b> {leader.column('placeofbirth')}</p>
+      <p><b>Conflict involved:</b> {leader.column('confdesc')}</p>
+      <p><b>Fighting against:</b> {leader.column('stname')}</p>
+      <p><b>Leadership age:</b> {leader.column('leadershipage')}</p>
+      <p><b>Entry method as leader:</b> {leader.column('entrymethod')}</p>
+      <p><b>Level of education achieved:</b> {leader.column('education')}</p>
+      <p><b>Occupation category before rebel leader:</b> {leader.column('occupation')}</p>
+      <p><b>Religion:</b> {leader.column('religion')}</p>
 
       
       {#if leader.column('married') == 1}
-      <p>Married: Yes</p>
+      <p><b>Married:</b> Yes</p>
       {:else if leader.column('married') == 0}
-      <p>Married: No</p>
+      <p><b>Married:</b> No</p>
       {:else}
-       <p>Married: No data available</p>
+       <p><b>Married:</b> No data available</p>
       {/if}
 
       {#if leader.column('children') == 1}
-      <p>Any children: Yes</p>
+      <p><b>Any children:</b> Yes</p>
       {:else if leader.column('married') == 0}
-      <p>Any children: No</p>
+      <p><b>Any children:</b> No</p>
       {:else}
-       <p>Any children: No data available</p>
+       <p><b>Any children:</b> No data available</p>
       {/if}
       
       {#if leader.column('military') == 1}
-      <p>Military experience before rebel leader: Yes</p>
+      <p><b>Military experience before rebel leader:</b> Yes</p>
       {:else if leader.column('military') == 0}
-      <p>Military experience before rebel leader: No</p>
+      <p><b>Military experience before rebel leader:</b> No</p>
       {:else}
-       <p>Military experience before rebel leader: No data available</p>
+       <p><b>Military experience before rebel leader:</b> No data available</p>
       {/if}
 
       {#if leader.column('combat') == 1}
-      <p>Previous combat experience before becoming rebel leader: Yes</p>
+      <p><b>Previous combat experience before becoming rebel leader:</b> Yes</p>
       {:else if leader.column('combat') == 0}
-      <p>Previous combat experience before becoming rebel leader: No</p>
+      <p><b>Previous combat experience before becoming rebel leader:</b> No</p>
       {:else}
-       <p>Previous combat experience before becoming rebel leader: No data available</p>
+       <p><b>Previous combat experience before becoming rebel leader:</b> No data available</p>
       {/if}
 
       {#if leader.column('govpost') == 1}
-      <p>Government post before becoming rebel leader: Yes</p>
+      <p><b>Government post before becoming rebel leader:</b> Yes</p>
       {:else if leader.column('govpost') == 0}
-      <p>Government post before becoming rebel leader: No</p>
+      <p><b>Government post before becoming rebel leader:</b> No</p>
       {:else}
-       <p>Government post before becoming rebel leader: No data available</p>
+       <p><b>Government post before becoming rebel leader:</b> No data available</p>
       {/if}
 
       {#if leader.column('exile') == 1}
-      <p>Been in exile before becoming rebel leader: Yes</p>
+      <p><b>Been in exile before becoming rebel leader:</b> Yes</p>
       {:else if leader.column('exile') == 0}
-      <p>Been in exile before becoming rebel leader: No</p>
+      <p><b>Been in exile before becoming rebel leader:</b> No</p>
       {:else}
-       <p>Been in exile before becoming rebel leader: No data available</p>
+       <p><b>Been in exile before becoming rebel leader:</b> No data available</p>
       {/if}
 
       {#if leader.column('studyab') == 1}
-      <p>Studied abroad before becoming rebel leader: Yes</p>
+      <p><b>Studied abroad before becoming rebel leader:</b> Yes</p>
       {:else if leader.column('studyab') == 0}
-      <p>Studied abroad before becoming rebel leader: No</p>
+      <p><b>Studied abroad before becoming rebel leader:</b> No</p>
       {:else}
-       <p>Studied abroad before becoming rebel leader: No data available</p>
+       <p><b>Studied abroad before becoming rebel leader:</b> No data available</p>
       {/if}
 
       {#if leader.column('workab') == 1}
-      <p>Worked abroad before becoming rebel leader: Yes</p>
+      <p><b>Worked abroad before becoming rebel leader:</b> Yes</p>
       {:else if leader.column('workab') == 0}
-      <p>Worked abroad before becoming rebel leader: No</p>
+      <p><b>Worked abroad before becoming rebel leader:</b> No</p>
       {:else}
-       <p>Worked abroad before becoming rebel leader: No data available</p>
+       <p><b>Worked abroad before becoming rebel leader:</b> No data available</p>
       {/if}
 
       {#if leader.column('prison') == 1}
-      <p> Imprisoned before becoming rebel leader: Yes</p>
+      <p><b>Imprisoned before becoming rebel leader:</b> Yes</p>
       {:else if leader.column('prison') == 0}
-      <p>Imprisoned before becoming rebel leader: No</p>
+      <p><b>Imprisoned before becoming rebel leader:</b> No</p>
       {:else}
-       <p>Imprisoned before becoming rebel leader: No data available</p>
+       <p><b>Imprisoned before becoming rebel leader:</b> No data available</p>
       {/if}
 
-      <p> Do you want more info about the rebel leader? <a href="https://www.google.com/search?q={leader.column('fullbirthname')}" target="_blank">Click here</a></p>
+      <p><b>For more info about the rebel leader:</b> <a href="https://www.google.com/search?q={leader.column('fullbirthname')}" target="_blank"><u>Click here</u></a></p>
     
       </div>
    {/if}
@@ -160,6 +168,21 @@
 
 
   <style>
+    .search{
+      font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      position: absolute;
+      
+      max-width: 180px;
+      margin-left: 20px;
+      padding-top: 10px;
+      padding-bottom: 20px;
+      padding-left: 10px;
+      padding-right: 5px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+
+    }
     .container {
       max-width: 800px;
       margin: 20px auto;
@@ -169,7 +192,8 @@
       border-radius: 8px;
     }
     
-  h2 {
+  h1 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     padding-left: 10px;
   }
   
@@ -179,6 +203,7 @@
   
     
   a {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color: #007bff;
     text-decoration: none;
   }
@@ -188,23 +213,39 @@
   }
 
   p {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     margin: 10px 0;
     padding-left: 10px;
   }
 
   .image-button {
     float: right;
-    margin-left: 10px;
+    /* margin-left: 10px;
     background-color: #007bff;
     color: #fff;
     padding: 10px 20px;
     border-radius: 4px;
-    display: inline-block;
+    display: inline-block; */
+    background-color: #24ba83; /* Green */
+    /* border: none; */
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration:none;
+    display:inline-block;
+    font-size: 14px;
+    margin: 4px 20px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 4px;
   }
 
   .image-button:hover {
-    background-color: #0056b3;
-    text-decoration: none;
+    /* background-color: #0056b3;
+    text-decoration: none; */
+    background-color: #dcf0e9;
+    color: rgb(16, 3, 3);
+    border: solid 1px;
   }
 
 </style>
