@@ -42,17 +42,18 @@
         onInput={handleSearch}
         value={searchQuery}
         onClear={handleClear}
+        placeholder="Type at least 3 characters"
       />
     </Navbar>
-    {#if (searchQuery.length >2)}
-      {#if possibleItems.length === 0}
-        <button>No result found</button>
-      {/if}
-      {#each possibleItems as item (item)}
-        <button on:click={()=>{selectLeader(item), handleClear()}}> {item}</button>
 
-      {/each}
-    {/if}
+      {#if searchQuery.length >= 3}
+        {#if possibleItems.length === 0}
+          <button>No result found</button>
+        {/if}
+        {#each possibleItems as item (item)}
+         <button on:click={()=>{selectLeader(item), handleClear()}}> {item}</button>
+        {/each}
+      {/if}
     </div>
 
     
@@ -61,7 +62,9 @@
 
       <h1>{leader.column('fullbirthname')}</h1>
     
-      <a class="image-button" href="https://www.google.com/search?q={leader.column('fullbirthname')}+rebel+leader&tbm=isch" target="_blank">View picture of {leader.column('fullbirthname')} </a>
+      <a class="image-button" href="https://www.google.com/search?q={leader.column('fullbirthname')}+rebel+leader&tbm=isch" target="_blank">View picture of {leader.column('fullbirthname')}
+        <span class="image-caption">Link to Google Images, sometimes it is possible that the pictures don't correspond with the rebel leaders</span>
+      </a>
      
       <p><b>Leader of rebelgroup:</b> {leader.column('groupname')}</p>
       {#if !(String(leader.column('popularname')) == String(leader.column('fullbirthname')))}
@@ -71,7 +74,7 @@
       {/if}  
       <p><b> Gender:</b> {leader.column('gender')}</p>
       <p><b>Born in:</b> {leader.column('yearofbirth')}</p>
-      {#if leader.column('yearofdeath') != '' && leader.column('deathcause') != ''}
+      {#if leader.column('yearofdeath') != '' || leader.column('deathcause') != ''}
         <p><b>Died in:</b> {leader.column('yearofdeath')}</p>
         <p><b>Deathcause:</b> {leader.column('deathcause')}</p>
       {:else}
@@ -182,8 +185,12 @@
       background-color: #fff;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
-
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
     }
+
+
     .container {
       max-width: 800px;
       margin: 20px auto;
@@ -247,6 +254,13 @@
     background-color: #dcf0e9;
     color: rgb(16, 3, 3);
     border: solid 1px;
+  }
+
+  .image-caption {
+    display: block;
+    font-size: 0.6em;
+    color: #fff;
+    margin-top: 5px;
   }
 
 </style>
