@@ -29,6 +29,21 @@
       <li>Going from one slide to the next and then back changes the positions of the balls, this is not a big problem it just makes it less consistent. Again, this could be fixed by hardcoding the location of each ball</li>
     </ul>
 
-    
+    <h3> Charts</h3>
+
+    <p> On this page several graphs were made. Some were made with the idea to explore the data and see the possibilities the dataset had to offer, other were inspired based on the findings of the paper by Acosta et al. (2023) </p>
+
+    <h4>Leadership age versus years in power</h4>
+
+    <p> This graphs shows the relationship between the age of the leader and the number of years the leaders stayed in power. A linear regression was plotted to visualize a possible relationship. Dependig on the region that is chosen a positive or negative relationship is given. No technical difficulties occurred for the making of this graph  </p>
+
+    <h4>Education level</h4>
+
+    <p> This is a very simple graph that shows the frequency of each education level across the dataset. A bar chart seemed ideal as this makes it easy to compare the frequency of the different education level, giving an idea of the distribution. Only one technical difficulty was present for this graph. Due to some leaders having empty values for different attributes, the groupBy function of florence DataContainer could not simply be used. To work around this a new datacontainer is simply made containing only the necesarry variables for the making of the graph.  </p>
+
+
+    <h3> Reference</h3>
+    <p>Acosta, B., Huang, R., & Silverman, D. (2023). Introducing ROLE: A database of rebel leader attributes in armed conflict. Journal of Peace Research, 60(2), 352-361. https://doi.org/10.1177/00223433221077920</p>
     <style>
+
     </style>
