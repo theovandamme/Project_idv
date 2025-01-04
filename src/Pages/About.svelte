@@ -8,11 +8,10 @@
     
     $: console.log(value)
     </script>
-      <input type="text" placeholder="Search" bind:value/>
-      <Graphic backgroundColor='green' width='700' height='700'>
-    
-       
-      </Graphic>
+    <h3>
+      Project report
+    </h3>
+
     
     <style>
     </style>

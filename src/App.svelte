@@ -208,7 +208,7 @@
     DC={unique_leaders}
     Clickedleader={leader}/>
     {:else if (select_page=='about')}
-      <Worldmap/>
+      <About/>
   {/if}
   </div>
   
