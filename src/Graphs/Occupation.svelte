@@ -1,9 +1,11 @@
 <script>
 import { Graphic, Section, RectangleLayer, PointLayer, Line, XAxis, YAxis, x2s,LabelLayer} from '@snlab/florence'
 import { regressionLinear } from 'd3-regression'
-import { schemeSpectral,interpolateSpectral,schemeTableau10 } from 'd3-scale-chromatic';
+import { schemeSpectral,interpolateSpectral,schemeTableau10,schemeSet3 } from 'd3-scale-chromatic';
 import { scaleLinear, scaleBand, scaleTime, scaleOrdinal } from 'd3-scale'
 import DataContainer from '@snlab/florence-datacontainer'
+import { color } from 'd3-color'
+
 export let DC_raw // Store parsed data
 export let selected_region
 export let width
@@ -21,41 +23,54 @@ let isHovering = false
 let hoveredEntryMethod = "Hover over a bars to see details"; // Default message
 let hoveredX2Entry = null;
 let correct_DC = true
+let darkenedSchemeSet3 = schemeSet3.map(c => color(c).darker(0.7).toString())
 
 $: console.log(correct_DC)
 function toggleAbout() { 
     showAbout = !showAbout;
   }
 
+// function defineScalecolor_occ(domain) {
+//     return scaleOrdinal()
+//         .domain(domain)
+//         .range(
+//             Array.from({ length: domain.length }, (_, i) =>
+//             interpolateSpectral(i / (domain.length - 1))
+//             )
+//         );
+// }
+
 function defineScalecolor_occ(domain) {
     return scaleOrdinal()
         .domain(domain)
         .range(
-            Array.from({ length: domain.length }, (_, i) =>
-            interpolateSpectral(i / (domain.length - 1))
+            darkenedSchemeSet3
             )
-        );
+        ;
 }
+
 
 function defineScalecolor_entry(domain) {
     return scaleOrdinal()
         .domain(domain)
         .range(
-            schemeTableau10
+            darkenedSchemeSet3
         );
 }
 
-function handleMouseover(event, d) {
-    hoveredEntryMethod = 'This should change in the entry method and the percentage';
-    hoveredX2Entry = d.x2_entry;
+function handleMouseover(event) {
+    hoveredEntryMethod = event.key;
+        console.log(hoveredEntryMethod)
+    // hoveredX2Entry = d.x2_entry;
     isHovering = true;
+
   }
 
-  function handleMouseout(event) {
-    hoveredEntryMethod = "Hover over a bar to see details";
-    hoveredX2Entry = null;
-    isHovering = false;
-  }
+//   function handleMouseout(event) {
+//     hoveredEntryMethod = 'something';
+//     hoveredX2Entry = null;
+//     isHovering = false;
+//   }
 function updateOccupationData() {
     // Use the full dataset if no EntryMethod is selected
     let filteredLeaders
@@ -122,6 +137,8 @@ $: if (selectedEntryMethod) {
     updateOccupationData();
     DefinePercentages(DC_raw)
 }
+$: selectedEntryMethod = isHovering ? hoveredEntryMethod : 'All'
+
 
 const labelEntrymethod=entryMethod_container.row({key:x1_entry})['entrymethod']
 console.log(labelEntrymethod)
@@ -138,11 +155,12 @@ console.log(labelEntrymethod)
     <option value={method}>{method}</option>
     {/each}
   </select>
-  </div>
+</div>
+    <p>Or hover over one</p>
   <Graphic 
   width={width} height={100} 
   scaleX= {scaleLinear().domain([entryMethod_container.min('x1_entry'),entryMethod_container.max('x2_entry')]).range({width})}
-  flipY padding={{left: 10, right:10, top: 25, bottom: 40}} > 
+  flipY padding={{left: 10, right:10, top: 10, bottom: 40}} > 
 
       <RectangleLayer 
         x1={entryMethod_container.column('x1_entry')} 
@@ -152,7 +170,6 @@ console.log(labelEntrymethod)
         keys={entryMethod_container.column('entryMethod')}
         fill={entryMethod_container.column('entryMethod').map(scaleColor_entryMethod)}
         onMouseover={(event, d) => handleMouseover(event, entryMethod_container)} 
-        onMouseout={handleMouseout}
         />  
         <XAxis />
         <LabelLayer class=labelEntry
