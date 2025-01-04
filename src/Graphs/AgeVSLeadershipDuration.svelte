@@ -48,7 +48,7 @@ const padding = { left: 40, bottom: 40, top: 15, right: 10 }
     <XAxis title='Leadership age'/>
     <YAxis title='Years in power'/>
   </Graphic>
-  <p> The number of years in power in function of the age at which the leaders were appointed is plotted here for {region}. The linear regression shows an unexpected relationships depending on the region. R<sup>2</sup> has a value of {regressionLine.rSquared.toFixed(4)} for this region, showing that it is not a relevant linear relationship.</p>
+  <p> The number of years in power in function of the age at which the leaders were appointed is plotted here for {region}. The linear regression shows an unexpected relationships depending on the region. R<sup>2</sup> has a value of {regressionLine.rSquared.toFixed(4)} for this region.</p>
 
 <style>
 
