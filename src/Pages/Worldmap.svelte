@@ -6,8 +6,7 @@
   import DataContainer from '@snlab/florence-datacontainer';
   import { WorldRegions } from '/src/Helpers/WorldRegionExport.js';
   import color_region from '/src/Graphs/Overview_graph.svelte'
-
-
+ export  let selected_region = 'the world'
 
   const WRegions = new DataContainer(WorldRegions);
   WRegions.setKey('COUNTRY') // set the key to the specific country
@@ -18,47 +17,42 @@
   const myColorScale = scaleOrdinal() // 2. fill color
     .domain(WRegions.domain('region'))
     .range(schemeSet3);
-    // const myColorScale = scaleOrdinal().domain(WRegions.domain('region'))
-    //   .range(color_region)
+    
 
     
   // 3. Mouseover behavior
-  let active = '';
+  let hover = '';
   let RegionData
-  $: Region = active ? (WRegions.row({key:active}))['region'] : 'the world'
-  // $:if (active !== ''){
-  //   RegionData=WRegions.filter(row=>row.region === Region)
-  //   console.log(RegionData)
-  // } else {
-  //   RegionData = WRegions
-  // }
 
-  // $: Region =(WRegions.row({key:active}))['region'] 
+  $: Region = hover ? (WRegions.row({key:hover}))['region'] : 'the world'
+
   $: RegionData=WRegions.filter(row=>row.region === Region)
-   $: console.log(RegionData)
+  //  $: console.log(RegionData)
   
 
 function handleMouseover(event) {
-  active = event.key; // Update the active key
+  hover = event.key; // Update the active key
 }
-  function handleMouseout() {
-    active = '' // Reset active
-    // console.log("Mouseout: Active Key Reset");
+ function handleMouseout() {
+    hover = '' // Reset active
   }
 
-  /////// handle clicks
+  // 4. handle clicks
 
-  let selected_region = 'the world'
   let click = false
-$:console.log('the selected region:',selected_region)
-  function handleClick(){
-  click = true
+function handleClick(event){
+    click = event.key
+  } 
+  $:clickedRegion = click ? (WRegions.row({key:click}))['region'] : 'the world'
+
+ $:if (click && (clickedRegion !== 'Antarctica' && clickedRegion !== 'East Asia')) {
+    selected_region = clickedRegion;
+} else {
+    selected_region = 'the world';
 }
- $:if (click){
-    selected_region=Region
-  }else{
-    selected_region='the world'
-  }
+$:console.log('the selected region:',selected_region)
+
+
 </script>
 
   <div class="main-chart">
@@ -75,7 +69,7 @@ $:console.log('the selected region:',selected_region)
         onClick={handleClick}
       />
       <!-- trying to add the selected region on top  -->
-      {#if active !== ''}
+      {#if hover !== ''}
       <PolygonLayer
       geometry={RegionData.column('$geometry')}
       strokeWidth={5}
@@ -84,7 +78,7 @@ $:console.log('the selected region:',selected_region)
       {/if}
      </Graphic>
     </div>
-  {#if active !== ''}
+  {#if hover !== ''}
     <div>
     <p> {Region}</p>
   </div>

@@ -20,13 +20,14 @@
     export let unique_leaders_raw
     export let progress
     export let unique_leaders
+    export let selected_region
 
     let divElement
     let width, height
     let Charts =[Age_VS_LD,FatalCombatEduc,FatalConflict,Occupation] // array with different charts 
     let ChartName=['Leadership age versus years in power','Fatalities versus education and combat experience','Education level','Fatality and duration of conflicts',"Leaders' occupation"]  
     let selectedChart = ''
-    let selected_region = 'the world'
+    // let selected_region
     let selected_variable = ''
     let darkenedSchemeSet3 = schemeSet3.map(c => color(c).darker(0.7).toString())
 
@@ -93,7 +94,8 @@
           </select>
           </div>
           <div class='worldmap'>
-          <Worldmap>
+          <Worldmap bind:selected_region={selected_region} 
+          >
 
           </Worldmap>
           </div>

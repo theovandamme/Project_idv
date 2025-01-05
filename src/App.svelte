@@ -198,7 +198,8 @@
     <Charts
     unique_leaders={unique_leaders}
     unique_leaders_raw={unique_leaders_raw}
-    progress={progress}/>
+    progress={progress}
+    bind:selected_region={selected_region}/>
     {:else if (select_page=='conflicts')}
     <h1>
       This feature is not yet available
