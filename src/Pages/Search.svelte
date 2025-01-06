@@ -246,19 +246,25 @@
     transition-duration: 0.4s;
     cursor: pointer;
     border-radius: 4px;
+    max-width: 40%;
   }
 
   .image-button:hover {
-    /* background-color: #0056b3;
-    text-decoration: none; */
+    /* background-color: #0056b3;*/
+    text-decoration: none; 
     background-color: #dcf0e9;
     color: rgb(16, 3, 3);
     border: solid 1px;
   }
 
+  .image-button:hover .image-caption {
+  color: rgb(16, 3, 3);
+  transition-duration: 0.4s;
+  }
+
   .image-caption {
     display: block;
-    font-size: 0.6em;
+    font-size: 0.7em;
     color: #fff;
     margin-top: 5px;
   }
