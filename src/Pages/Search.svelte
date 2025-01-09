@@ -228,14 +228,7 @@
 
   .image-button {
     float: right;
-    /* margin-left: 10px;
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 4px;
-    display: inline-block; */
-    background-color: #24ba83; /* Green */
-    /* border: none; */
+    background-color: #24ba83;
     color: white;
     padding: 10px 20px;
     text-align: center;
@@ -250,7 +243,6 @@
   }
 
   .image-button:hover {
-    /* background-color: #0056b3;*/
     text-decoration: none; 
     background-color: #dcf0e9;
     color: rgb(16, 3, 3);
