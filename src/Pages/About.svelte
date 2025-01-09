@@ -72,11 +72,15 @@
     <h3> Search</h3>
     <p> In the search page (search.svelte), a search bar is implemented to allow users to look up specific rebel leaders. Users must type at least three characters before a list of possible rebel leaders appears. Once a rebel leader's name is clicked, an information card for that specific rebel leader is displayed. This information card contains all available details about the individual from the ROLE dataset form Acosta et al. (2022), such as the rebel group they led, their ‘also known as’ names, and other characteristics like whether they were married or had children. Additionally, a button is provided that links to Google Images, allowing users to view a picture of the rebel leader. </p>
     <p> It is important to note that this image feature may not always be accurate or reliable, as some rebel leaders have been deceased for a long time or were not widely known. In some cases, individuals with similar names may appear in the search results. Users should approach this feature with caution. However, it was included as an engaging extra element, as it allows users to better visualize the rebel leader in question in most cases. </p>
-    
+    <p>The search page is an interesting non-visualization addition to the project, providing a more personal perspective compared to the general data presented in the charts section of the webpage. This feature offers users a deeper, more individualized insight into specific rebel leaders, which can be particularly useful if they are interested in exploring a particular leader in greater detail.</p>
+    <p>Most elements from the dataset by Acosta et al. (2022) are included in the search page. However, some details, such as whether a leader studied in the USA or UK or whether they held a religious title, were excluded. These elements were considered less critical, especially since they were not applicable to most rebel leaders in the dataset.</p>
+
+
     <h3> If there was more time</h3>
     <p> If more time was available for the project, additional graphs and charts could be created to further enhance the visualization of the data. For now, a limited number of graphs and charts have been made that seemed most interesting and relevant to visualize for the research.</p>
     <p>The user-friendliness could also have been improved further, making the site even more accessible.</p>
     <p>There was a plan to also create a conflict webpage if more time had been available. This could have displayed the different conflicts that the studied rebel leaders were involved in, possibly shown on a map by country. However, it was also decided not to include this, as it was not the focus or objective of the paper or the creators of the dataset.</p>
+    
     
     <h2> Reference</h2>
     <p>Acosta, B., Huang, R., & Silverman, D. (2022). Introducing ROLE: A database of rebel leader attributes in armed conflict. Journal of Peace Research, 60(2), 352-361. <a href= https://doi.org/10.1177/00223433221077920>https://doi.org/10.1177/00223433221077920</a></p>
