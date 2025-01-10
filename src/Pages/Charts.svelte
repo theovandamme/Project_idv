@@ -94,9 +94,10 @@
           </select>
           </div>
           <div class='worldmap'>
-          <Worldmap bind:selected_region={selected_region} 
+            <p>Click on a region to select it</p>
+          <Worldmap 
+          bind:selected_region={selected_region} 
           >
-
           </Worldmap>
           </div>
           </div>
@@ -223,7 +224,7 @@
 }          
 .export {margin-top: -30px;}
 .worldmap {
-  width:10%;
+  width:50%;
 }
 button {
   

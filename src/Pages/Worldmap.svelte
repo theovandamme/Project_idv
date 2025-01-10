@@ -21,20 +21,22 @@
 
     
   // 3. Mouseover behavior
-  let hover = '';
+  let hover = false;
+  let key
   let RegionData
 
-  $: Region = hover ? (WRegions.row({key:hover}))['region'] : 'the world'
+  $: Region = hover ? (WRegions.row({key:key}))['region'] : 'the world'
+  $: RegionData=WRegions.filter(row=>row.region === selected_region)
 
-  $: RegionData=WRegions.filter(row=>row.region === Region)
   //  $: console.log(RegionData)
   
 
 function handleMouseover(event) {
-  hover = event.key; // Update the active key
+  hover = true
+  key= event.key; // Update the active key
 }
  function handleMouseout() {
-    hover = '' // Reset active
+    hover = false // Reset active
   }
 
   // 4. handle clicks
@@ -64,12 +66,12 @@ $:console.log('the selected region:',selected_region)
         strokeWidth={1}
         fill={WRegions.map('region', myColorScale)}
         keys={WRegions.column('COUNTRY')}
-        onMouseover={handleMouseover}
+        onTouchdown={handleMouseover}
         onMouseout={handleMouseout}
         onClick={handleClick}
       />
-      <!-- trying to add the selected region on top  -->
-      {#if hover !== ''}
+      <!-- to add a red polygon from the selected region on top  -->
+      {#if click !== false}
       <PolygonLayer
       geometry={RegionData.column('$geometry')}
       strokeWidth={5}
@@ -78,7 +80,7 @@ $:console.log('the selected region:',selected_region)
       {/if}
      </Graphic>
     </div>
-  {#if hover !== ''}
+  {#if hover == true}
     <div>
     <p> {Region}</p>
   </div>

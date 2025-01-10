@@ -66,6 +66,23 @@
 
     <p> This is a very simple graph that shows the frequency of each education level across the dataset. A bar chart seemed ideal as this makes it easy to compare the frequency of the different education level, giving an idea of the distribution. Only one technical difficulty was present for this graph. Due to some leaders having empty values for different attributes, the 'groupBy' function of florence DataContainer could not simply be used. To work around this a new datacontainer is simply made containing only the necesarry variables for the making of the graph.  </p>
 
+    <h4>Occupation</h4>
+
+    <p>
+     In this bar chart the primary occupation before becomming a rebel leader is vissualised in function of the method the rebel leaders used to seize power. By selecting one of the entry methods, the barchart displays al the leaders that used this entry method to seize power.<br>
+     Important to know is that for 20% the occupation is unknown. Therefore, the decission was made to exclude these data from the chart.<br>
+     The bar chart was chosen because this chart  is a simple to understand and proportional differences are easily understood. This was done because if a more clomplex method was chosen, it could become to complex because of the combination with the entry method variable and the region.<br>
+     A point for improvement is that the entry method bar does not go to 100%. There was not enough time to find out what caused this problem.   
+   </p>
+
+    <h4> Worldmap</h4>
+
+    <p>
+      The worldmap can be used to select a region of interest. 
+      This can also be done with a simple drop down but the map gives a better idea where this region is and which countries these include.
+      The combination of both a map and a drop down menu to select a region is done to be as user-friendly as possible.
+    </p>
+
     <h4>...</h4>
 
 

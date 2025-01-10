@@ -44,7 +44,7 @@
 
 
   // Making of the selection
-  let selected_region = 'the world'
+ export let selected_region = 'the world'
   let selected_variable = ''
   
   $: if (progress) {

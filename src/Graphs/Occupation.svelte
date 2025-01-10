@@ -157,7 +157,8 @@ console.log(labelEntrymethod)
   </select>
 </div>
     <p>Or hover over one</p>
-  <Graphic 
+<!-- Entrymethod bar -->
+   <Graphic 
   width={width} height={100} 
   scaleX= {scaleLinear().domain([entryMethod_container.min('x1_entry'),entryMethod_container.max('x2_entry')]).range({width})}
   flipY padding={{left: 10, right:10, top: 10, bottom: 40}} > 
@@ -171,16 +172,16 @@ console.log(labelEntrymethod)
         fill={entryMethod_container.column('entryMethod').map(scaleColor_entryMethod)}
         onMouseover={(event, d) => handleMouseover(event, entryMethod_container)} 
         />  
-        <XAxis />
-        <LabelLayer class=labelEntry
+        <XAxis  />
+        <LabelLayer 
         x={entryMethod_container.column('x1_entry')} 
         y={entryMethod_container.column('x1_entry').map((x) =>x= 0.2)} 
         text={entryMethod_container.column('entryMethod')}
         fill=white
-        fontSize=8
+        fontSize=10
         anchorPoint='l'
         />
-        
+ <!-- occupation bar chart -->
     </Graphic> 
     {#if (correct_DC)}
     <Graphic width={width} height={400} {scaleX} {scaleY} flipY padding={{left: 40, right:10, top: 25, bottom: 40}}>
@@ -198,6 +199,7 @@ console.log(labelEntrymethod)
     </Graphic>
     {/if}
    
+    
 <style>
 
 </style>
