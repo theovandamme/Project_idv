@@ -30,7 +30,32 @@
       <li>Search.svelte: The webpage where the search bar can be used to look up the name of a rebel leader. When the name of a rebel leader is entered, an info sheet appears with key information and characteristics about the individual.</li>
       <li>About.svelte: The about webpage where information can be found about this project and the webpage. This is also known as the project report.</li>
     </ul>
-    <p> The invisible parts (graphs, helpers, data): ???</p> /*is dit nuttig om dit ook op te sommen?*/
+    <p> The invisible parts (graphs, helpers, data):</p> 
+    <ul>
+      <li>Graphs:
+        <ul>
+          <li>AgeVSLeadershipDuration.svelte</li>
+          <li>Education.svelte</li>
+          <li>FatalCombatEduc.svelte</li>
+          <li>Occupation.svelte</li>
+          <li>Overview_graph.svelte</li>
+        </ul>
+      </li>
+      <li>Helpers:
+        <ul>
+          <li>ExportCSV.svelte: To download the rebel leader csv file for a specific world region in the charts section.</li>
+          <li>ExportSVG.svelte: To download the visible chart in the charts section.</li>
+          <li>WorldRegionExport.js</li>
+        </ul>
+      </li>
+      <li>Data:
+        <ul>
+          <li>unique_leaders.csv</li>
+          <li>world_regions.csv</li>
+          
+        </ul>
+      </li>
+    </ul>
 
     <h2>
       Discussion
@@ -110,8 +135,6 @@
       This can also be done with a simple drop down but the map gives a better idea where this region is and which countries these include.
       The combination of both a map and a drop down menu to select a region is done to be as user-friendly as possible.
     </p>
-
-    <h4>...</h4>
 
 
     <h3> Search</h3>
