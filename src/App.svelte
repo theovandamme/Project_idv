@@ -95,6 +95,7 @@
   class:page_button_closed={!open}
   class:page_button_selected={selected_page==1 ||select_page=='overview'} 
     on:click={()=>select_page='overview'} 
+    on:click={()=>open = false}
     on:mouseenter={() => selected_page = 1} 
     on:mouseleave={() => selected_page = 0}
     >
@@ -114,6 +115,7 @@
         class:page_button_closed={!open}
         class:page_button_selected={selected_page==2 ||select_page=='charts'}
         on:click={()=>select_page='charts'}
+        on:click={()=>open = false}
         on:mouseenter={() => selected_page = 2} 
         on:mouseleave={() => selected_page = 0}>
     <div class= 'page_icon'>
@@ -129,6 +131,7 @@
   <div class='page_button' class:page_button_selected={selected_page==3 ||select_page=='conflicts'}
         class:page_button_closed={!open}
         on:click={()=>select_page='conflicts'}
+        on:click={()=>open = false}
         on:mouseenter={() => selected_page = 3} 
         on:mouseleave={() => selected_page = 0}>
 
@@ -147,6 +150,7 @@
         class:page_button_closed={!open}
         class:page_button_selected={selected_page==4 ||select_page=='search'}
         on:click={()=>select_page='search'}
+        on:click={()=>open = false}
         on:mouseenter={() => selected_page = 4} 
         on:mouseleave={() => selected_page = 0}>
     <div class= 'page_icon'>
@@ -163,6 +167,7 @@
         class:page_button_closed={!open}
         class:page_button_selected={selected_page==5 ||select_page=='about'}
         on:click={()=>select_page='about'}
+        on:click={()=>open = false}
         on:mouseenter={() => selected_page = 5} 
         on:mouseleave={() => selected_page = 0}>
     <div class= 'page_icon'>

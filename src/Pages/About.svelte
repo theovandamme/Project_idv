@@ -71,8 +71,36 @@
     <p>
      In this bar chart the primary occupation before becomming a rebel leader is vissualised in function of the method the rebel leaders used to seize power. By selecting one of the entry methods, the barchart displays al the leaders that used this entry method to seize power.<br>
      Important to know is that for 20% the occupation is unknown. Therefore, the decission was made to exclude these data from the chart.<br>
-     The bar chart was chosen because this chart  is a simple to understand and proportional differences are easily understood. This was done because if a more clomplex method was chosen, it could become to complex because of the combination with the entry method variable and the region.<br>
+     The bar chart was chosen because this chart  is a simple to understand and proportional differences are easily understood. This was done because if a more clomplex method was chosen, it could have become too complex because of the combination with the entry method variable and the region.<br>
      A point for improvement is that the entry method bar does not go to 100%. There was not enough time to find out what caused this problem.   
+   </p>
+
+   <h4>Conflicts and Fatalities</h4>
+   
+   <p>
+    This graph visualises the duration of conflicts that rebel leaders in the dataset were involved in, in relation to the amount of fatalities that were made by the use of terrorism in that conflict, by each rebel leader's organisation.
+    <br><br>
+    It is meant to give more visual insight into the amount of conflicts with terrorism on the one hand, their respective region of occurrence, and the different amount of terrorism fatalities that have been made by the rebel organisation in that conflict. Visual comparison is made possible through this graph to gain better insight into different amounts of terrorism use regarded to the different regions and different lengths of conflicts.
+    For example, attention could be put on conflicts with short duration, however with very high fatality numbers.
+    <br><br>
+    A horizontal bar chart was used and combined with X and Y axis to be able to compare the different variables of amount as height and time as horizontal length. A logarithmic Y-axis was considered regarding the large fatality differences. Grid lines were added to be able to better link bars to X and Y values. Colours were evidently added to be able to discern different regions of interest.
+    <br>
+   </p>
+
+   <h4>Fatalities versus Education Level and Combat Experience</h4>
+
+   <p>
+    This graph uses circles with size correlating to amount of fatalities made by use of terrorism, compared to the education level and combat experience of rebel leaders. It draws a circle for each combination of Combat Experience (Yes/No) and Education Level (7 levels) that shows the corresponding average amount of fatalities made by the use of terrorism in that category, for a specific region when selected.
+    <br><br>
+    It is an attempt at visualising one of the main findings in what was one of the goals of the paper to which this dataset is pertaining, namely the relations between rebel leader characteristics and their actions.
+    The researchers of the paper of which this dataset is originating, Acosta et al. (2022) showed correlations between different biographic variables of rebel leaders in the dataset and the use of terrorism in civil war of their organisation. They found rebel leaders with a higher education level and previous combat experience to be more likely to avoid the use of terrorism in their conflicts.
+    <br><br>
+    However, in the graph made in this project, this relationship is visually not directly clear, and thus, not reflecting the conclusions drawn by the Acosta et al. (2022). This can have different possible causes, regarding to the approach used for the fabrication of this graph.
+    <br>
+    To begin with, the techniques of analysis differ. Acosta et al. (2022) used negative binomial regression models to assess the impact of leaders' characteristics on the fatalities. While in this project, the amount of terrorism usage was simply calculated as a mean, per category of combinations between the education and combat experience. One should thus also look at education and combat experience separately and see if there's a correlation with the paper's conclusions.
+    As well should be kept in mind, that taking the mean value is a much less robust technique and explains less. It is very sensitive to outliers in each category, due to which the visualisation may not give an accurate view, combined with that the data distribution can also not be checked to control the accuracy. This could maybe added to give more insight.
+    <br><br>
+    As an extra addition, there could have been thought about the colours that could have been used in a better way to visualise extra information, as in the current version, they only represent the region, which is already selected. There is no direct visual comparison possible between the regions, making the region colour coding lose some of its effectiveness.
    </p>
 
     <h4> Worldmap</h4>
