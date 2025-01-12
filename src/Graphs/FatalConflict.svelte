@@ -81,6 +81,18 @@ padding = { left: 50, bottom: 40, top: 10, right: 10 }
 
 </script>
 
+<h4>Fatalities Made by Terrorism & Duration of Conflict</h4>
+{#if selectedIndex == null}
+ <p>Hover over a bar to see rebel leader involved...</p>
+{:else if selectedIndex !== null}
+
+  <div>
+    <p>Rebel leader: <b style="color: red">{unique_leaders_yap.column('fullbirthname')[selectedIndex]}</b></p>
+  </div>
+{/if}
+
+<p>Look up the name of the rebel leader in our database search tool on the site, to expand your knowledge.</p>
+
 <!-- The zoom function for the RectangleLayer crashes by certain input.
  I couldn't figure how to fix it yet. -->
  <Graphic width={width} height={550}>   
@@ -152,7 +164,7 @@ padding = { left: 50, bottom: 40, top: 10, right: 10 }
         labelRotate = {0.4} 
         labelFontSize = {8} 
         labelFont = "Courier"
-        title="Annual Terrorist Fatalities made" 
+        title="Annual Terrorist Fatalities Made" 
         titleFont="Courier" 
         titleXOffset={-30} 
         />
@@ -164,24 +176,13 @@ padding = { left: 50, bottom: 40, top: 10, right: 10 }
 
 </Graphic>
 
-<h4>Rebel leader involved in conflict:</h4>
-{#if selectedIndex == null}
- <p>Hover over a bar to see rebel leader...</p>
-{:else if selectedIndex !== null}
-
-  <div>
-    <p style="color: red"><b>{unique_leaders_yap.column('fullbirthname')[selectedIndex]}</b></p>
-  </div>
-{/if}
-
-<p>Look up the name of the rebel leader in our database search tool on the site, to expand your knowledge.</p>
-
-
-
 <h4>About the graph:</h4>
-<p>This graph combines data about rebel leader characteristics and the actions of the rebel organisation they lead.
-     In this case the annual amount of fatalities made by the organisation through the use of terrorism is visualised compared with the length of the conflict they were involved in.
-    The colours visualise the region the conflict occurred in.</p>
+<p style='text-align: justify; width: 75%'>This graph combines data about rebel leader characteristics and the actions of the rebel organization they lead.
+     In this case the annual amount of fatalities made by the organization through the use of terrorism is visualized compared with the length of the conflict they were involved in.
+    The colors visualize the region of the country against which the rebel organization was fighting.
+<br>
+For interpretation, caution should be paid that if there is only 1 terrorist event in a 10-year conflict, the number of annual deaths from terrorism shown on the graph will obviously be equal to the number of deaths in that one year divided by ten.
+</p>
 <!-- <h1 style="color: blue;">
   {selectedIndex === null ? "None selected" : unique_leaders_yap.column('fullbirthname')[selectedIndex]}
 </h1> -->

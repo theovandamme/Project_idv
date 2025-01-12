@@ -85,7 +85,7 @@
 {#if (progress)}
 <div class='header'>
 <h1 class = 'title'>
-  ROLE, Rebel leaders from around the world
+  ROLE, Rebel Leaders from Around the World
 </h1>
 </div>
 
@@ -239,7 +239,7 @@
   position:fixed;
   background-color: #ebebeb;
   }
-.title{ min-width: 650px;
+.title{ min-width: 950px;
   height: 30px;}
 .page_selector{width:120px;
   float:left;

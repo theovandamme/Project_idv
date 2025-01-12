@@ -218,7 +218,7 @@
           position: relative;
           color:#116466;}
 .graph_and_description { 
-  height:900px;
+  height:950px;
   padding-left: 20px;
   margin-top: 60px;
   width: 100%;
