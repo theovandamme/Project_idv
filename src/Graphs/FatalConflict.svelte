@@ -27,6 +27,7 @@
     let scaleX
     let scaleY
     let padding
+    let selectedIndex = null
     
 
     
@@ -60,7 +61,7 @@
         // Create colour scale
 
         regionColorScale = scaleOrdinal()
-            .domain(DC_raw.domain('Region'))
+            .domain(DC_raw.domain('Region').sort((a, b) => a.localeCompare(b)))
             .range(darkenedSchemeSet3);
 
 
@@ -128,6 +129,8 @@ padding = { left: 50, bottom: 40, top: 10, right: 10 }
         fill={unique_leaders_yap.map('Region', r => regionColorScale(r))}
         opacity = {0.6}
         stroke={"grey"}
+        onMouseover={({index}) => (selectedIndex = index)}
+        onMouseout={() => (selectedIndex = null)}
 
 
         />
@@ -160,7 +163,33 @@ padding = { left: 50, bottom: 40, top: 10, right: 10 }
 
 </Graphic>
 
-<div class="about">
+<h4>Rebel leader involved in conflict:</h4>
+{#if selectedIndex == null}
+ <p>Hover over a bar to see rebel leader...</p>
+{:else if selectedIndex !== null}
+
+  <div
+
+  >
+    <p style="color: red"><b>{unique_leaders_yap.column('fullbirthname')[selectedIndex]}</b></p>
+  </div>
+<!-- {:else if selectedIndex == null}
+    <div
+    class="tooltip"
+    style="left: {mouseX + 10}px; top: {mouseY + 10}px;"
+    >
+    {unique_leaders_yap.column('fullbirthname')[selectedIndex]} -->
+
+{/if}
+
+<h4>About the graph:</h4>
+<p>This graph combines data about rebel leader characteristics and the actions of the rebel organisation they lead.
+     In this case the annual amount of fatalities made by the organisation through the use of terrorism is visualised compared with the length of the conflict they were involved in.
+    The colours visualise the region the conflict occurred in.</p>
+<!-- <h1 style="color: blue;">
+  {selectedIndex === null ? "None selected" : unique_leaders_yap.column('fullbirthname')[selectedIndex]}
+</h1> -->
+<!-- <div class="about">
     <p>This graph displays the duration of different rebel leaders' conflicts in time and 
       their respective amount of generated fatalities by terrorism.
       This chart is meant to give better insight in the amount of conflicts on the one hand, and the different amount of terrorism fatalities between world regions
@@ -173,4 +202,17 @@ padding = { left: 50, bottom: 40, top: 10, right: 10 }
       subjects of interest. The approach used can be framed within Munzner's What/Why/How three-part analysis framework for data visualization.
 
     </p>
-  </div>
+  </div> -->
+
+<style>
+    .leaderbox {
+    position: relative;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+    font-size: 16px;
+  }
+</style>

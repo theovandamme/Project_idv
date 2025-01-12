@@ -219,8 +219,9 @@
           color:#116466;}
 .graph_and_description { 
   height:900px;
-  /* padding-left: 20px;
-  margin-top: 20px; */
+  padding-left: 20px;
+  margin-top: 60px;
+  width: 100%;
 }          
 .export {margin-top: -30px;}
 .worldmap {

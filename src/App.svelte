@@ -251,7 +251,7 @@
   z-index:9998;
   position:fixed;
   background: fixed #ebebeb;
-  top:80px;
+  top:79px;
 }
 .page_selector_closed{width: 60px;
     }
@@ -301,6 +301,7 @@
 :global(body){
   background-color:#ebebeb;
   color:#116466;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 </style>

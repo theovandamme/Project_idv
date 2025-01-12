@@ -6,7 +6,10 @@
   import DataContainer from '@snlab/florence-datacontainer';
   import { WorldRegions } from '/src/Helpers/WorldRegionExport.js';
   import color_region from '/src/Graphs/Overview_graph.svelte'
+  import { color } from 'd3-color'
  export  let selected_region = 'the world'
+
+ let darkenedSchemeSet3 = schemeSet3.map(c => color(c).darker(0.7).toString())
 
   const WRegions = new DataContainer(WorldRegions);
   WRegions.setKey('COUNTRY') // set the key to the specific country
@@ -15,8 +18,8 @@
   // set up scales
   const myGeoScale = fitScales(WRegions.domain('$geometry')); // 1. position
   const myColorScale = scaleOrdinal() // 2. fill color
-    .domain(WRegions.domain('region'))
-    .range(schemeSet3);
+    .domain(WRegions.domain('region').sort((a, b) => a.localeCompare(b)))
+    .range(darkenedSchemeSet3);
     
 
     

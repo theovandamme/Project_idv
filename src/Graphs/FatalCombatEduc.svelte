@@ -74,7 +74,7 @@
         //     .range([2, 50])
 
   regionColorScale = scaleOrdinal()
-    .domain(DC_raw.domain('Region'))
+    .domain(DC_raw.domain('Region').sort((a, b) => a.localeCompare(b)))
     .range(darkenedSchemeSet3) 
 
   padding = { left: 200, bottom: 40, top: 10, right: 10 }
