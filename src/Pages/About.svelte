@@ -58,6 +58,18 @@
     </ul>
 
     <h2>
+      Content of the Project 
+    </h2>
+    <p>Design choices regarding lay-out and style were made as follows:</p>
+    <ul> 
+      <li><b>Text:</b> For font-family there was opted fort a sans-serif font for the global web page, except some graphs, as this results generally in better readability on digital media.</li>
+      <li><b>Colors:</b> Neutral dark greens were chosen as color scheme for the project. There was mainly focused on the practical aspects of the functionality of the projects, if there was more time, we might have dug deeper into finding even more suitable color schemes or even backgrounds. Darkened color schemes from D3 were used for region identification in the graphs and on the world map. The color coding for graphs and world map however does not correspond yet. This may have been fixed with more time.</li>
+      <li><b>Lay-out:</b> We opted for the use of different pages to have deeper and more complex user interactions with the dataset and make clear distinctions between different purposes on the site. The search page and about page were put in a white box to better keep user’s attention on the text. </li>
+      <li><b>Interaction:</b> Strong focus was put on interaction with the users, by buttons, drop-down menus, selection possibilities, and switching between pages The idea behind is to keep the user interested.</li>
+    </ul>
+
+
+    <h2>
       Discussion
     </h2>
 
@@ -135,6 +147,8 @@
       The worldmap can be used to select a region of interest. 
       This can also be done with a simple drop down but the map gives a better idea where this region is and which countries these include.
       The combination of both a map and a drop down menu to select a region is done to be as user-friendly as possible.
+      Regions on the worldmap and for the production of graphs were not yet included in the dataset, but were self defined based on the UN region classification, with some minor additional changes for better logical visualisation regarding the specific subject.
+      The countries assigned to each region, are defined in the ROLE database codebook as the countries to which rebel organizations are fighting, so not the country of origin of the organization or rebel leader. This should be kept in mind for correctly interpreting the different graphs and corresponding data.
     </p>
 
 
