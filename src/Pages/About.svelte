@@ -23,14 +23,14 @@
     <h2>
       Content of the Project 
     </h2>
-    <p>The visible parts (the pages):</p>
+    <h4>The visible parts (the pages):</h4>
     <ul> 
       <li>Overview.svelte: The start webpage that provides an interactive introduction for viewers. All the rebel leaders are represented as points, and they are categorized by different subdivisions, such as world regions, with each category color-coded.</li>
       <li>Charts.svelte: The webpage with all the charts made. The users can choose from one of five elements they want to visualize in a chart: leadership age vs years in power, fatalities vs education and combat experience, education level, fatalities and duration of conflicts, and the leader's occupation before becoming a rebel leader.</li>
       <li>Search.svelte: The webpage where the search bar can be used to look up the name of a rebel leader. When the name of a rebel leader is entered, an info sheet appears with key information and characteristics about the individual.</li>
       <li>About.svelte: The about webpage where information can be found about this project and the webpage. This is also known as the project report.</li>
     </ul>
-    <p> The invisible parts (graphs, helpers, data):</p> 
+    <h4> The invisible parts (graphs, helpers, data):</h4> 
     <ul>
       <li>Graphs:
         <ul>
