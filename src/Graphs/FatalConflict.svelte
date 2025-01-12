@@ -28,6 +28,7 @@
     let scaleY
     let padding
     let selectedIndex = null
+    let selected_page = 0
     
 
     
@@ -82,7 +83,7 @@ padding = { left: 50, bottom: 40, top: 10, right: 10 }
 
 <!-- The zoom function for the RectangleLayer crashes by certain input.
  I couldn't figure how to fix it yet. -->
- <Graphic width={width} height={650}>   
+ <Graphic width={width} height={550}>   
  <Section
     x1={0.82}
     x2={1}
@@ -128,7 +129,7 @@ padding = { left: 50, bottom: 40, top: 10, right: 10 }
         y2={unique_leaders_yap.column('y2')}
         fill={unique_leaders_yap.map('Region', r => regionColorScale(r))}
         opacity = {0.6}
-        stroke={"grey"}
+        stroke={({ index }) => (index === selectedIndex ? "red" : "grey")}
         onMouseover={({index}) => (selectedIndex = index)}
         onMouseout={() => (selectedIndex = null)}
 
@@ -151,7 +152,7 @@ padding = { left: 50, bottom: 40, top: 10, right: 10 }
         labelRotate = {0.4} 
         labelFontSize = {8} 
         labelFont = "Courier"
-        title="Terrorist Fatalities made" 
+        title="Annual Terrorist Fatalities made" 
         titleFont="Courier" 
         titleXOffset={-30} 
         />
@@ -168,19 +169,14 @@ padding = { left: 50, bottom: 40, top: 10, right: 10 }
  <p>Hover over a bar to see rebel leader...</p>
 {:else if selectedIndex !== null}
 
-  <div
-
-  >
+  <div>
     <p style="color: red"><b>{unique_leaders_yap.column('fullbirthname')[selectedIndex]}</b></p>
   </div>
-<!-- {:else if selectedIndex == null}
-    <div
-    class="tooltip"
-    style="left: {mouseX + 10}px; top: {mouseY + 10}px;"
-    >
-    {unique_leaders_yap.column('fullbirthname')[selectedIndex]} -->
-
 {/if}
+
+<p>Look up the name of the rebel leader in our database search tool on the site, to expand your knowledge.</p>
+
+
 
 <h4>About the graph:</h4>
 <p>This graph combines data about rebel leader characteristics and the actions of the rebel organisation they lead.
@@ -205,14 +201,9 @@ padding = { left: 50, bottom: 40, top: 10, right: 10 }
   </div> -->
 
 <style>
-    .leaderbox {
-    position: relative;
-    background-color: white;
-    border: 1px solid #ccc;
-    padding: 5px;
-    border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    pointer-events: none;
-    font-size: 16px;
-  }
+    .page_button {width: 140px;
+              height: 65px;
+              margin-left: -20px;
+              margin-top: -18px;
+              cursor:pointer;}
 </style>

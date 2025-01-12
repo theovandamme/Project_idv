@@ -16,8 +16,8 @@
     <h2>
       Introduction
     </h2>
-    <p> As part of the Interactive Data Visualization course, a project was created to explore and visualize information about rebel leaders. This study by Acosta et al. (2022) aims to shed light on various aspects of their lives, providing a better understanding of who they are. The aim is to answer key questions such as: Who are they? What drives them? What were their lives like before they became rebel leaders? Do they have children? Wat is the spatial distribution over the world of those rebel leaders? In essence, the goal is with this project to gain deeper insights into the characteristics of rebel leaders around the world and understand them better, all through an interactive and engaging experience. </p>
-    <p>The data used in this project is sourced from Acosta et al. (2022), who created a database detailing the attributes of rebel leaders involved in armed conflicts. Because earlier studies about this topic rarely examined whether and how rebel leader characteristics matter for explaining political outcomes, they developed this database. Acosta proposes that the personal backgrounds and experiences of rebel leaders play a crucial role in explaining the behavior of the rebel organizations they lead. The Rebel Organization Leaders (ROLE) database contains a wide range of biographical information on all top rebel leaders in civil wars that occurred between 1980 and 2011. One of the main goals of the paper and the creation of the database is to shift the focus beyond analyzing rebel organizations and campaigns and bring individual leaders more fully into modern conflict and peace studies (Acosta et al., 2022).</p>
+    <p>As part of the Interactive Data Visualization course, a project was created to explore and visualize information about rebel leaders. This study by Acosta et al. (2022) aims to shed light on various aspects of their lives, providing a better understanding of who they are. The aim is to answer key questions such as: Who are they? What drives them? What were their lives like before they became rebel leaders? Do they have children? Wat is the spatial distribution over the world of those rebel leaders? In essence, the goal is with this project to gain deeper insights into the characteristics of rebel leaders around the world and understand them better, all through an interactive and engaging experience. </p>
+    <p>The data used in this project is sourced from Acosta et al. (2022), who created a database detailing the attributes of rebel leaders involved in armed conflicts. Because earlier studies about this topic rarely examined whether and how rebel leader characteristics matter for explaining political outcomes, they developed this database. It contains however variables from earlier research on rebel organizations, from the TAC database (Terrorism in Armed Conflict) from Fortna et al. (2020), such as the annual fatalities made by the use of terrorism for each organization. Acosta proposes that the personal backgrounds and experiences of rebel leaders play a crucial role in explaining the behavior of the rebel organizations they lead. The Rebel Organization Leaders (ROLE) database contains a wide range of biographical information on all top rebel leaders in civil wars that occurred between 1980 and 2011. One of the main goals of the paper and the creation of the database is to shift the focus beyond analyzing rebel organizations and campaigns and bring individual leaders more fully into modern conflict and peace studies (Acosta et al., 2022).</p>
     <p>The project visualizes the results using various types of charts, such as histograms and other graphical representations. The visualizations are designed to allow users to explore detailed charts for each world region. Additionally, automated info sheets for individual rebel leaders were created, providing a dedicated profile for each leader.</p>
 
     <h2>
@@ -108,7 +108,7 @@
     It is meant to give more visual insight into the amount of conflicts with terrorism on the one hand, their respective region of occurrence, and the different amount of terrorism fatalities that have been made by the rebel organisation in that conflict. Visual comparison is made possible through this graph to gain better insight into different amounts of terrorism use regarded to the different regions and different lengths of conflicts.
     For example, attention could be put on conflicts with short duration, however with very high fatality numbers.
     <br><br>
-    A horizontal bar chart was used and combined with X and Y axis to be able to compare the different variables of amount as height and time as horizontal length. A logarithmic Y-axis was considered regarding the large fatality differences. Grid lines were added to be able to better link bars to X and Y values. Colours were evidently added to be able to discern different regions of interest.
+    A horizontal bar chart was used and combined with X and Y axis to be able to compare the different variables of amount as height and time as horizontal length. A logarithmic Y-axis was considered regarding the large fatality differences. However, by using such logarithmic scale, only conflicts where enough terrorism fatalities occured could be included, as the axis only starts at 1. Grid lines were added to be able to better link bars to X and Y values. Colours were evidently added to be able to discern different regions of interest.
     <br>
    </p>
 
@@ -150,17 +150,22 @@
     <p>There was a plan to also create a conflict webpage if more time had been available. This could have displayed the different conflicts that the studied rebel leaders were involved in, possibly shown on a map by country. However, it was also decided not to include this, as it was not the focus or objective of the paper or the creators of the dataset.</p>
     
     
-    <h2> Reference</h2>
+    <h2> References</h2>
     <p>Acosta, B., Huang, R., & Silverman, D. (2022). Introducing ROLE: A database of rebel leader attributes in armed conflict. Journal of Peace Research, 60(2), 352-361. <a href= https://doi.org/10.1177/00223433221077920>https://doi.org/10.1177/00223433221077920</a></p>
-    
+    <p>Fortna, V. P., Lotito, N. J., & Rubin, M. A. (2020). Terrorism in armed conflict: new data attributing terrorism to rebel organizations. Conflict Management And Peace Science, 39(2), 214–236. <a href= https://doi.org/10.1177/0738894220972996>https://doi.org/10.1177/0738894220972996</a></p>
     </div>
     
     <style>
       .text-container{
     max-width: 750px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 50px;
     text-align: justify;
-    }
+        /* Box styling: */
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-left: 250px
+  }
 
     </style>
