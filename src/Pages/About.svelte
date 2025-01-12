@@ -58,7 +58,7 @@
     </ul>
 
     <h2>
-      Content of the Project 
+      Design Choices
     </h2>
     <p>Design choices regarding lay-out and style were made as follows:</p>
     <ul> 
