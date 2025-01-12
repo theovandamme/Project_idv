@@ -147,7 +147,7 @@
       The worldmap can be used to select a region of interest. 
       This can also be done with a simple drop down but the map gives a better idea where this region is and which countries these include.
       The combination of both a map and a drop down menu to select a region is done to be as user-friendly as possible.
-      Regions on the worldmap and for the production of graphs were not yet included in the dataset, but were self defined based on the UN region classification, with some minor additional changes for better logical visualisation regarding the specific subject.
+      Regions on the worldmap and for the production of graphs were not yet included in the dataset, but were self defined based on the UN region classification, with some minor additional changes for better logical visualization regarding the specific subject.
       The countries assigned to each region, are defined in the ROLE database codebook as the countries to which rebel organizations are fighting, so not the country of origin of the organization or rebel leader. This should be kept in mind for correctly interpreting the different graphs and corresponding data.
     </p>
 
